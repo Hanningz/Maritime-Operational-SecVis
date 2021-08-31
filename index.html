@@ -354,26 +354,17 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
     <!------------------------------- connecting server and get data ----------------------------------->
-    <script type="text/javascript">
+ 
 
-        $.getJSON("http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/30601/", function(data) {
-    // JSON result in `data` variable
-            alert(data)
-        });
-
-  //alert("we")
-  //const xhttp = new XMLHttpRequest();
-
-        // Define a callback function
-        //xhttp.onload = function() {
-        // Here you can use the Data
-        //alert(this.responseText)
-        // Send a request
-            //xhttp.open("GET", "http://130.230.184.213:8088/api/clients/wks-96445-mac.ad.tuni.fi/30601/");
-            //xhttp.send();
-        //}
-        
+      <script type="text/javascript">
+         var url3 ="http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/";
+         $.get(url3,function(data){
+         alert(JSON.stringify(data));
+       }); 
+    
     </script>
+        
+  
 
     <script type="text/javascript">
 	
