@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SecurityVisDemo-OP</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+   />
+   
+    <link rel="stylesheet" href="./assets/css/dashlite.css?ver=1.4.0">
+    <link id="skin-default" rel="stylesheet" href="./assets/css/theme.css?ver=1.4.0">
+    <script src="https://d3js.org/d3.v5.js"></script> 
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        color: #404040;
+        font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+
+      .map-overlay {
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      position: right;
+      width: 25%;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      }
+      
+      .map-overlay .map-overlay-inner {
+      background-color: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+      padding: 10px;
+      margin-bottom: 10px;
+      }
+      
+      .map-overlay h2 {
+      line-height: 24px;
+      display: block;
+      margin: 0 0 10px;
+      }
+      
+      .map-overlay .legend .bar {
+      height: 10px;
+      width: 100%;
+      background: linear-gradient(to right, #fca107, #7f3121);
+      }
+      
+      .map-overlay input {
+      background-color: transparent;
+      display: inline-block;
+      width: 100%;
+      position: relative;
+      margin: 0;
+      cursor: ew-resize;
+      }
+
+
+      .card{
+      background-color: #f3f5fa; 
+      position: right;
+      margin: 0;
+  
+      }
+
+
+      .sidebar {
+        position: absolute;
+        width: 12%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        background-color: transparent;
+        
+      }
+
+      .map {
+        position: absolute;
+        left: 0%;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+      }
+
+      h1 {
+        font-size: 22px;
+        margin: 0;
+        font-weight: 400;
+        line-height: 20px;
+        padding: 20px 2px;
+      }
+
+      a {
+        color: #404040;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #101010;
+      }
+
+      .heading {
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        min-height: 50px;
+        width: 130px;
+        line-height: 60px;
+        padding: 0 10px;
+        background-color: #4e73df;
+        color: #fff;
+      }
+
+      .listings {
+        background-color: transparent;
+        height: 100%;
+        overflow: auto;
+        padding-bottom: 10px;
+      }
+
+      .listings .item {
+        display: block;
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+        text-decoration: none;
+        background-color: #fff;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+
+      .listings .item:last-child {
+        border-bottom: none;
+      }
+      .listings .item .title {
+        display: block;
+        color: #384ec1;
+        font-weight: 700;
+        font-size: 12px;
+      }
+
+      .listings .item .title small {
+        font-weight: 400;
+      }
+      .listings .item.active .title,
+      .listings .item .title:hover {
+        color: #9ba6e0;
+      }
+      .listings .item.active {
+        background-color: #dfdfdf;
+      }
+      ::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+        border-left: 0;
+        background: rgba(0, 0, 0, 0.1);
+      }
+      ::-webkit-scrollbar-track {
+        background: none;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #00853e;
+        border-radius: 0;
+      }
+
+      .marker {
+        border: none;
+        cursor: pointer;
+        height: 20px;
+        width: 20px;
+        background-image: url(img/circle-15.svg); 
+        background-color: rgba(0, 0, 0, 0);
+      }
+
+      .clearfix {
+        display: block;
+      }
+      .clearfix:after {
+        content: '.';
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+      }
+
+      
+      /* Marker tweaks */
+      .mapboxgl-popup {
+        padding-bottom: 30px;
+      }
+
+      .mapboxgl-popup-close-button {
+        display: none;
+      }
+      .mapboxgl-popup-content {
+        font: 100 15px/20px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+        padding: 0;
+        width: 180px;
+      }
+      .mapboxgl-popup-content-wrapper {
+        padding: 1%;
+      }
+      .mapboxgl-popup-content h3 {
+        background: #9ba6e0;
+        color: #fff;
+        margin: 0;
+        display: block;
+        padding: 1px;
+        border-radius: 3px 3px 0 0;
+        font-weight: 100;
+        margin-top: 0px;
+       
+      }
+
+      .mapboxgl-popup-content h4 {
+        margin-top: 8px;
+        display: block;
+        padding: 0px 0px 3px 3px;
+        margin-left:10px;
+        font-weight: 26;
+      }
+
+      .mapboxgl-popup-content div {
+        padding: 1px;
+      }
+
+      .mapboxgl-container .leaflet-marker-icon {
+        cursor: pointer;
+      }
+
+      .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+        margin-top: 15px;
+      }
+
+      .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+        border-bottom-color: #91c949;
+      }
+
+      #markerd {
+        background-image: url(img/undraw_profile.svg);
+        background-size: cover;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    #marker1 {
+        background-image: url(img/undraw_profile_1.svg);
+        background-size: cover;
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    #marker2 {
+        background-image: url(img/undraw_profile_2.svg);
+        background-size: cover;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    #marker3 {
+        background-image: url(img/undraw_profile_3.svg);
+        background-size: cover;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+
+    .menu-ui {
+        background:#fff;
+        position:absolute;
+        top:10px;right:10px;
+        z-index:1;
+        border-radius:3px;
+        width:90px;
+        border:1px solid rgba(0,0,0,0.4);
+        }
+        
+    .menu-ui a {
+            font-size:12px;
+            color:#404040;
+            display:block;
+            margin:0;padding:0;
+            padding:10px;
+            text-decoration:none;
+            border-bottom:1px solid rgba(0,0,0,0.25);
+            text-align:center;
+            }
+    .menu-ui a:first-child {
+            border-radius:3px 3px 0 0;
+            }
+    .menu-ui a:last-child {
+            border:none;
+            border-radius:0 0 3px 3px;
+            }
+    .menu-ui a:hover {
+            background:#dfdfdf;
+            color:#404040;
+            }
+    .menu-ui a.active,
+    .menu-ui a.active:hover {
+            background:#4d96be;
+            color:#FFF;
+        }
+
+    </style>
+
+     
+
+  </head>
+  <body class="nk-body npc-covid has-sidebar has-sidebar-short ui-clean ui-rounder">
+    
+  <nav class='menu-ui'>
+        <a href='d-op.html' data-filter='all' style="font-weight: bold; color:#6b6969;">Dashboard</a>
+  </nav>
+
+  <div id="map" class="map"></div>
+  <div class="map-overlay top">
+      <div class="map-overlay-inner">
+     
+      </div>
+      <div class="map-overlay-inner">
+     
+        <div class="sidebar">
+          <div class="heading">
+            <h1>Ongoing threats</h1>
+          </div>
+
+          <div id="sumchart" style="width: 800px; height:600px;" >
+          
+          </div>
+
+
+
+
+  
+          <div id="listings" class="listings">
+          </div>
+        </div>  
+      </div>
+      
+     
+  </div>
+   
+ 
+    <script>
+      /* This will let you use the .remove() function later on */
+      if (!('remove' in Element.prototype)) {
+        Element.prototype.remove = function () {
+          if (this.parentNode) {
+            this.parentNode.removeChild(this);
+          }
+        };
+      }
+
+      mapboxgl.accessToken = 'pk.eyJ1IjoiaGFubmluZ3oiLCJhIjoiY2ttZzVqd2U5M2MxYTJybjZtNjd3dHA2NSJ9.lz98lPQBxskqXL3PtNScQQ';
+
+      /**
+       * Add the map to the page
+       */
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v10', 
+        center: [22.1903, 60.4306],//22.2177, 60.438
+        zoom: 22,
+        //scrollZoom: false
+      });
+
+      var m1 = [22.2054, 60.4309];
+      var m2 = [22.2097, 60.4312];
+      var m3 = [22.1637, 60.4237];
+      var m4 = [22.1689, 60.4231];
+      var m5 = [22.1749, 60.4215];
+      var m6 = [22.2177, 60.4380];
+      var m7 = [22.2235, 60.4361];
+      var m8 = [22.2185, 60.4322];
+      var m9 = [22.1783, 60.4232];
+
+     
+      var stores = {
+        'type': 'FeatureCollection',
+        'features': [
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [22.2218, 60.4375]
+            },
+            'properties': {
+              'phoneFormatted': 'CompanyName/Location',
+              'phone': '2022347336',
+              'address': 'Security incident #01',
+              'city': 'Malware Detection',
+              'content': 'Ransomware attack on IT management system',
+              'crossStreet': 'at 15th St NW',
+              'postalCode': '20005',
+              'state': 'D.C.'
+            }
+          },
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [22.2186, 60.4347]
+            },
+            'properties': {
+              'phoneFormatted': 'CompanyName/Location',
+              'phone': '2025078357',
+              'address': 'Security incident #02',
+              'city': 'Malware Detection',
+              'content': 'Ransomware attack on IT management system',
+              'crossStreet': 'at 22nd St NW',
+              'postalCode': '20037',
+              'state': 'D.C.'
+            }
+          },
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [22.2044, 60.4366]
+            },
+            'properties': {
+              'phoneFormatted': 'CompanyName/Location',
+              'phone': '2025078357',
+              'address': 'Security incident #07',
+              'city': 'Malware Detection',
+              'content': 'Ransomware attack on IT management system',
+              'crossStreet': 'at 22nd St NW',
+              'postalCode': '20037',
+              'state': 'D.C.'
+            }
+          },
+           {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [22.2182, 60.4358]
+            },
+            'properties': {
+              'phoneFormatted': 'CompanyName/Location',
+              'phone': '2025078357',
+              'address': 'Security incident #08',
+              'city': 'Malware Detection',
+              'content': 'Ransomware attack on IT management system',
+              'crossStreet': 'at 22nd St NW',
+              'postalCode': '20037',
+              'state': 'D.C.'
+            }
+          },
+           {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [22.2114, 60.4380]
+            },
+            'properties': {
+              'phoneFormatted': 'CompanyName/Location',
+              'phone': '2025078357',
+              'address': 'Security incident #02',
+              'city': 'Firmware update failed',
+              'content': 'Ransomware attack on IT management system',
+              'crossStreet': 'at 22nd St NW',
+              'postalCode': '20037',
+              'state': 'D.C.'
+            }
+          },
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [22.1855, 60.4268]
+            },
+            'properties': {
+              'phoneFormatted': 'CompanyName/Location',
+              'phone': '2025078357',
+              'address': 'Security incident #02',
+              'city': 'Firmware update failed',
+              'content': 'Ransomware attack on IT management system',
+              'crossStreet': 'at 22nd St NW',
+              'postalCode': '20037',
+              'state': 'D.C.'
+            }
+          },
+           {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [22.2149, 60.4421]
+            },
+            'properties': {
+              'phoneFormatted': 'CompanyName/Location',
+              'phone': '2025078357',
+              'address': 'Security incident #02',
+              'city': 'Firmware update failed',
+              'content': 'Ransomware attack on IT management system',
+              'crossStreet': 'at 22nd St NW',
+              'postalCode': '20037',
+              'state': 'D.C.'
+            }
+          },
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [22.1752, 60.4244]
+            },
+            'properties': {
+              'address': 'Security incident #05',
+              'city': 'Malware Detection',
+              'content': 'Ransomware attack on IT management system and here is <a style="color:#4a4aff;" href="http://mapbox.com">incident report</a>.',
+              'postalCode': '20740',
+              'state': 'MD'
+            }
+          }
+        ]
+      };
+
+      /**
+       * Assign a unique id to each store. You'll use this `id`
+       * later to associate each point on the map with a listing
+       * in the sidebar.
+       */
+      stores.features.forEach(function (store, i) {
+        store.properties.id = i;
+      });
+
+      /**
+       * Wait until the map loads to make changes to the map.
+       */
+      map.on('load', function (e) {
+        /**
+         * This is where your '.addLayer()' used to be, instead
+         * add only the source without styling a layer
+         */
+        map.addSource('places', {
+          'type': 'geojson',
+          'data': stores
+        });
+
+        /**
+         * Add all the things to the page:
+         * - The location listings on the side of the page
+         * - The markers onto the map
+         */
+        buildLocationList(stores);
+        addMarkers();
+      });
+
+      /**
+       * Add a marker to the map for every store listing.
+       **/
+      function addMarkers() {
+        /* For each feature in the GeoJSON object above: */
+        stores.features.forEach(function (marker) {
+          /* Create a div element for the marker. */
+          var el = document.createElement('div');
+          /* Assign a unique `id` to the marker. */
+          el.id = 'marker-' + marker.properties.id;
+          /* Assign the `marker` class to each marker for styling. */
+          el.className = 'marker';
+
+          /**
+           * Create a marker using the div element
+           * defined above and add it to the map.
+           **/
+          new mapboxgl.Marker(el, { offset: [0, -23] })
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map);
+
+          /**
+           * Listen to the element and when it is clicked, do three things:
+           * 1. Fly to the point
+           * 2. Close all other popups and display popup for clicked store
+           * 3. Highlight listing in sidebar (and remove highlight for all other listings)
+           **/
+          el.addEventListener('click', function (e) {
+            /* Fly to the point */
+            flyToStore(marker);
+            /* Close all other popups and display popup for clicked store */
+            createPopUp(marker);
+            /* Highlight listing in sidebar */
+            var activeItem = document.getElementsByClassName('active');
+            e.stopPropagation();
+            if (activeItem[0]) {
+              activeItem[0].classList.remove('active');
+            }
+            var listing = document.getElementById(
+              'listing-' + marker.properties.id
+            );
+            listing.classList.add('active');
+          });
+        });
+      }
+
+      /**
+       * Add a listing for each store to the sidebar.
+       **/
+      function buildLocationList(data) {
+        data.features.forEach(function (store, i) {
+          /**
+           * Create a shortcut for `store.properties`,
+           * which will be used several times below.
+           **/
+          var prop = store.properties;
+
+          /* Add a new listing section to the sidebar. */
+          var listings = document.getElementById('listings');
+          var listing = listings.appendChild(document.createElement('div'));
+          /* Assign a unique `id` to the listing. */
+          listing.id = 'listing-' + prop.id;
+          /* Assign the `item` class to each listing for styling. */
+          listing.className = 'item';
+
+          /* Add the link to the individual listing created above. */
+          var link = listing.appendChild(document.createElement('a'));
+          link.href = '#';
+          link.className = 'title';
+          link.id = 'link-' + prop.id;
+          link.innerHTML = prop.address;
+          
+          /* Add details to the individual listing. */
+          var details = listing.appendChild(document.createElement('div'));
+          //details.innerHTML = ' ';
+          details.innerHTML = prop.city + '<a><span style="font-size: 1em; color: Tomato;"><i class="far fa-flag"></i></span></a>';
+          if (prop.phone) {
+            //details.innerHTML += ' &middot; <br>' + prop.phoneFormatted;
+          }
+
+          /**
+           * Listen to the element and when it is clicked, do four things:
+           * 1. Update the `currentFeature` to the store associated with the clicked link
+           * 2. Fly to the point
+           * 3. Close all other popups and display popup for clicked store
+           * 4. Highlight listing in sidebar (and remove highlight for all other listings)
+           **/
+          link.addEventListener('click', function (e) {
+            for (var i = 0; i < data.features.length; i++) {
+              if (this.id === 'link-' + data.features[i].properties.id) {
+                var clickedListing = data.features[i];
+                flyToStore(clickedListing);
+                createPopUp(clickedListing);
+              }
+            }
+            var activeItem = document.getElementsByClassName('active');
+            if (activeItem[0]) {
+              activeItem[0].classList.remove('active');
+            }
+            this.parentNode.classList.add('active');
+          });
+        });
+      }
+
+      /**
+       * Use Mapbox GL JS's `flyTo` to move the camera smoothly
+       * a given center point.
+       **/
+      function flyToStore(currentFeature) {
+        map.flyTo({
+          center: currentFeature.geometry.coordinates,
+          zoom: 15
+        });
+      }
+
+      /**
+       * Create a Mapbox GL JS `Popup`.
+       **/
+      function createPopUp(currentFeature) {
+        var popUps = document.getElementsByClassName('mapboxgl-popup');
+        if (popUps[0]) popUps[0].remove();
+        var popup = new mapboxgl.Popup({ closeOnClick: false })
+          .setLngLat(currentFeature.geometry.coordinates)
+          .setHTML(
+            '<h3>' + currentFeature.properties.address + '</h3>' + 
+              '<h4>' + currentFeature.properties.city + '<br><br>' + currentFeature.properties.content +
+              '</h4>'
+          )
+          .addTo(map);
+      }
+
+      var popupo = new mapboxgl.Popup({ closeOnClick: true }).setText(
+        'Handling'
+        );
+
+           var ee = document.createElement('div');
+            ee.id = 'markerd';
+
+          // create the marker
+          new mapboxgl.Marker(ee)
+        .setLngLat(m1)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+         var e1 = document.createElement('div');
+            e1.id = 'markerd';
+
+          // create the marker
+          new mapboxgl.Marker(e1)
+        .setLngLat(m2)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+        var ee = document.createElement('div');
+            ee.id = 'markerd';
+
+          // create the marker
+          new mapboxgl.Marker(ee)
+        .setLngLat(m1)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+         var e1 = document.createElement('div');
+            e1.id = 'markere';
+
+          // create the marker
+          new mapboxgl.Marker(e1)
+        .setLngLat(m1)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+        var ee = document.createElement('div');
+            ee.id = 'markerd';
+
+          // create the marker
+          new mapboxgl.Marker(ee)
+        .setLngLat(m1)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+         var e1 = document.createElement('div');
+            e1.id = 'markerd';
+
+          // create the marker
+          new mapboxgl.Marker(e1)
+        .setLngLat(m2)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+        var e2 = document.createElement('div');
+            e2.id = 'markerd';
+
+          // create the marker
+          new mapboxgl.Marker(e2)
+        .setLngLat(m2)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+         var e3= document.createElement('div');
+            e3.id = 'marker3';
+
+          // create the marker
+          new mapboxgl.Marker(e3)
+        .setLngLat(m3)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+        var e4 = document.createElement('div');
+            e4.id = 'marker2';
+
+          // create the marker
+          new mapboxgl.Marker(e4)
+        .setLngLat(m4)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+         var e5 = document.createElement('div');
+            e5.id = 'marker2';
+
+          // create the marker
+          new mapboxgl.Marker(e5)
+        .setLngLat(m5)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+        
+      var e6 = document.createElement('div');
+            e6.id = 'marker1';
+
+          // create the marker
+          new mapboxgl.Marker(e6)
+        .setLngLat(m6)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+         var e7 = document.createElement('div');
+            e7.id = 'marker1';
+
+          // create the marker
+          new mapboxgl.Marker(e7)
+        .setLngLat(m7)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+ 
+         var e8 = document.createElement('div');
+            e8.id = 'marker3';
+
+          // create the marker
+          new mapboxgl.Marker(e8)
+        .setLngLat(m8)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+        var e9 = document.createElement('div');
+            e9.id = 'marker2';
+
+          // create the marker
+        new mapboxgl.Marker(e9)
+        .setLngLat(m9)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+    </script>
+
+
+    <script>
+        var size = 200;
+
+        var popupt = new mapboxgl.Popup({ closeOnClick: false })
+        .setLngLat([22.2133, 60.4310])
+        .setHTML('<h4>Ransomware Detected!</h4>')
+        .addTo(map);
+        
+        // implementation of CustomLayerInterface to draw a pulsing dot icon on the map
+        // see https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface for more info
+        var pulsingDot = {
+        width: size,
+        height: size,
+        data: new Uint8Array(size * size * 4),
+        
+        // get rendering context for the map canvas when layer is added to the map
+        onAdd: function () {
+        var canvas = document.createElement('canvas');
+        canvas.width = this.width;
+        canvas.height = this.height;
+        this.context = canvas.getContext('2d');
+        },
+        
+        // called once before every frame where the icon will be used
+        render: function () {
+        var duration = 1000;
+        var t = (performance.now() % duration) / duration;
+        
+        var radius = (size / 2) * 0.3;
+        var outerRadius = (size / 2) * 0.7 * t + radius;
+        var context = this.context;
+        
+        // draw outer circle
+        context.clearRect(0, 0, this.width, this.height);
+        context.beginPath();
+        context.arc(
+        this.width / 2,
+        this.height / 2,
+        outerRadius,
+        0,
+        Math.PI * 2
+        );
+        context.fillStyle = 'rgba(255, 200, 200,' + (1 - t) + ')';
+        context.fill();
+        
+        // draw inner circle
+        context.beginPath();
+        context.arc(
+        this.width / 2,
+        this.height / 2,
+        radius,
+        0,
+        Math.PI * 2
+        );
+        context.fillStyle = 'rgba(255, 100, 100, 1)';
+        context.strokeStyle = 'white';
+        context.lineWidth = 2 + 4 * (1 - t);
+        context.fill();
+        context.stroke();
+        
+        // update this image's data with data from the canvas
+        this.data = context.getImageData(
+        0,
+        0,
+        this.width,
+        this.height
+        ).data;
+        
+        // continuously repaint the map, resulting in the smooth animation of the dot
+        map.triggerRepaint();
+        
+        // return `true` to let the map know that the image was updated
+        return true;
+        }
+        };
+        
+        map.on('load', function () {
+        map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
+        
+        map.addSource('points', {
+        'type': 'geojson',
+        'data': {
+        'type': 'FeatureCollection',
+        'features': [
+        {
+        'type': 'Feature',
+        'geometry': {
+        'type': 'Point',
+        'coordinates': [22.2218, 60.4375] //22.2133, 60.4310
+        }
+        }
+        ]
+        }
+        });
+        map.addLayer({
+        'id': 'points',
+        'type': 'symbol',
+        'source': 'points',
+        'layout': {
+        'icon-image': 'pulsing-dot'
+        }
+        });
+        });
+    </script>
+
+    <script>
+      // TO MAKE THE MAP APPEAR YOU MUST
+      // ADD YOUR ACCESS TOKEN FROM
+      // https://account.mapbox.com
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaGFubmluZ3oiLCJhIjoiY2ttZzVqd2U5M2MxYTJybjZtNjd3dHA2NSJ9.lz98lPQBxskqXL3PtNScQQ';
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v10',
+    center: [22.1903, 60.4306],
+    zoom: 13.69
+    });
+    
+    var months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+    ];
+    
+    function filterBy(month) {
+    var filters = ['==', 'month', month];
+    map.setFilter('earthquake-circles', filters);
+    map.setFilter('earthquake-labels', filters);
+    
+    // Set the label to the month
+    document.getElementById('month').textContent = months[month];
+    }
+    
+    map.on('load', function () {
+    // Data courtesy of http://earthquake.usgs.gov/
+    // Query for significant earthquakes in 2015 URL request looked like this:
+    // http://earthquake.usgs.gov/fdsnws/event/1/query
+    //    ?format=geojson
+    //    &starttime=2015-01-01
+    //    &endtime=2015-12-31
+    //    &minmagnitude=6'
+    //
+    // Here we're using d3 to help us make the ajax request but you can use
+    // Any request method (library or otherwise) you wish.
+    d3.json(
+    'https://raw.githubusercontent.com/Hanningz/practices-for-Visualization-/master/da.geojson',
+    function (err, data) {
+    if (err) throw err;
+    
+    // Create a month property value based on time
+    // used to filter against.
+    data.features = data.features.map(function (d) {
+    d.properties.month = new Date(d.properties.time).getMonth();
+    return d;
+    });
+    
+    map.addSource('earthquakes', {
+    'type': 'geojson',
+    data: data
+    });
+
+    var popupo = new mapboxgl.Popup({ closeOnClick: true }).setText(
+        'Handling'
+        );
+    var mt = [22.2054, 60.4309];
+
+    var eet = document.createElement('div');
+    eet.id = 'markerd';
+
+    // create the marker
+    new mapboxgl.Marker(eet)
+        .setLngLat(mt)
+        .setPopup(popupo) // sets a popup on this marker
+        .addTo(map);
+
+    var popupott = new mapboxgl.Popup({ closeOnClick: true }).setText(
+        'Handlingk'
+        );
+    var mtt = [22.2054, 60.4309];
+
+    var eett = document.createElement('div');
+    eet.id = 'markerd';
+
+    // create the marker
+    new mapboxgl.Marker(eett)
+        .setLngLat(mtt)
+        .setPopup(popupott) // sets a popup on this marker
+        .addTo(map);
+    
+    
+    map.addLayer({
+    'id': 'earthquake-circles',
+    'type': 'circle',
+    'source': 'earthquakes',
+    'paint': {
+    'circle-color': [
+    'interpolate',
+    ['linear'],
+    ['get', 'mag'],
+    6,
+    '#FCA107',
+    8,
+    '#7F3121'
+    ],
+    'circle-opacity': 0.75,
+    'circle-radius': [
+    'interpolate',
+    ['linear'],
+    ['get', 'mag'],
+    6,
+    10,
+    8,
+    40
+    ]
+    }
+    });
+    
+    map.addLayer({
+    'id': 'earthquake-labels',
+    'type': 'symbol',
+    'source': 'earthquakes',
+    'layout': {
+    'text-field': [
+    'concat',
+    ['to-string', ['get', 'mag']],
+    'm'
+    ],
+    'text-font': [
+    'Open Sans Bold',
+    'Arial Unicode MS Bold'
+    ],
+    'text-size': 12
+    },
+    'paint': {
+    'text-color': 'rgba(0,0,0,0.5)'
+    }
+    });
+    
+    // Set filter to first month of the year
+    // 0 = January
+    filterBy(0);
+    
+
+   
+    document
+    .getElementById('slider')
+    .addEventListener('input', function (e) {
+    var month = parseInt(e.target.value, 10);
+    filterBy(month);
+    });
+    }
+    );
+    });
+    </script>
+
+
+<script type="text/javascript">
+  var dom = document.getElementById("sumchart");
+  var myChart = echarts.init(dom);
+  var app = {};
+  
+  var option;
+  
+  
+  
+  var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
+          '7a', '8a', '9a','10a','11a',
+          '12p', '1p', '2p', '3p', '4p', '5p',
+          '6p', '7p', '8p', '9p', '10p', '11p'];
+  var days = ['Saturday', 'Friday', 'Thursday',
+          'Wednesday', 'Tuesday', 'Monday', 'Sunday'];
+  
+  var data = [[0,0,5],[0,1,1],[0,2,0],[0,3,0],[0,4,0],[0,5,0],[0,6,0],[0,7,0],[0,8,0],[0,9,0],[0,10,0],[0,11,2],[0,12,4],[0,13,1],[0,14,1],[0,15,3],[0,16,4],[0,17,6],[0,18,4],[0,19,4],[0,20,3],[0,21,3],[0,22,2],[0,23,5],[1,0,7],[1,1,0],[1,2,0],[1,3,0],[1,4,0],[1,5,0],[1,6,0],[1,7,0],[1,8,0],[1,9,0],[1,10,5],[1,11,2],[1,12,2],[1,13,6],[1,14,9],[1,15,11],[1,16,6],[1,17,7],[1,18,8],[1,19,12],[1,20,5],[1,21,5],[1,22,7],[1,23,2],[2,0,1],[2,1,1],[2,2,0],[2,3,0],[2,4,0],[2,5,0],[2,6,0],[2,7,0],[2,8,0],[2,9,0],[2,10,3],[2,11,2],[2,12,1],[2,13,9],[2,14,8],[2,15,10],[2,16,6],[2,17,5],[2,18,5],[2,19,5],[2,20,7],[2,21,4],[2,22,2],[2,23,4],[3,0,7],[3,1,3],[3,2,0],[3,3,0],[3,4,0],[3,5,0],[3,6,0],[3,7,0],[3,8,1],[3,9,0],[3,10,5],[3,11,4],[3,12,7],[3,13,14],[3,14,13],[3,15,12],[3,16,9],[3,17,5],[3,18,5],[3,19,10],[3,20,6],[3,21,4],[3,22,4],[3,23,1],[4,0,1],[4,1,3],[4,2,0],[4,3,0],[4,4,0],[4,5,1],[4,6,0],[4,7,0],[4,8,0],[4,9,2],[4,10,4],[4,11,4],[4,12,2],[4,13,4],[4,14,4],[4,15,14],[4,16,12],[4,17,1],[4,18,8],[4,19,5],[4,20,3],[4,21,7],[4,22,3],[4,23,0],[5,0,2],[5,1,1],[5,2,0],[5,3,3],[5,4,0],[5,5,0],[5,6,0],[5,7,0],[5,8,2],[5,9,0],[5,10,4],[5,11,1],[5,12,5],[5,13,10],[5,14,5],[5,15,7],[5,16,11],[5,17,6],[5,18,0],[5,19,5],[5,20,3],[5,21,4],[5,22,2],[5,23,0],[6,0,1],[6,1,0],[6,2,0],[6,3,0],[6,4,0],[6,5,0],[6,6,0],[6,7,0],[6,8,0],[6,9,0],[6,10,1],[6,11,0],[6,12,2],[6,13,1],[6,14,3],[6,15,4],[6,16,0],[6,17,0],[6,18,0],[6,19,0],[6,20,1],[6,21,2],[6,22,2],[6,23,6]];
+  
+  option = {
+      tooltip: {
+          position: 'top'
+      },
+      title: [],
+      singleAxis: [],
+      series: []
+  };
+  
+  days.forEach(function (day, idx) {
+      option.title.push({
+          textBaseline: 'middle',
+          top: (idx + 0.5) * 100 / 7 + '%',
+          text: day
+      });
+      option.singleAxis.push({
+          left: 150,
+          type: 'category',
+          boundaryGap: false,
+          data: hours,
+          top: (idx * 100 / 7 + 5) + '%',
+          height: (100 / 7 - 10) + '%',
+          axisLabel: {
+              interval: 2
+          }
+      });
+      option.series.push({
+          singleAxisIndex: idx,
+          coordinateSystem: 'singleAxis',
+          type: 'scatter',
+          data: [],
+          symbolSize: function (dataItem) {
+              return dataItem[1] * 4;
+          }
+      });
+  });
+  
+  data.forEach(function (dataItem) {
+      option.series[dataItem[0]].data.push([dataItem[1], dataItem[2]]);
+  });
+  
+  if (option && typeof option === 'object') {
+      myChart.setOption(option);
+  }
+  
+          </script>
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+  </body>
+</html>

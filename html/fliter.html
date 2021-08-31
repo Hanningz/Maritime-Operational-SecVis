@@ -1,0 +1,164 @@
+<html lang="zxx" class="js">
+
+<head>
+    <base href="../../">
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="@@page-discription">
+    <!-- Fav Icon  -->
+   
+    <!-- Page Title  -->
+    <title>te</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" href="./assets/css/dashlite.css?ver=1.4.0">
+    <link id="skin-default" rel="stylesheet" href="./assets/css/theme.css?ver=1.4.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+
+
+</head>
+
+<body class="">
+
+    <div id="map"></div>
+
+<div class="inputs" id="event-types">
+  <input type="checkbox" class="event-type" name="funfair" value="funfair" checked="true">
+  <label for="funfair">Funfair</label>
+  <input type="checkbox" class="event-type" name="trade" value="trade-demonstration" checked="true">
+  <label for="trade">Trade demonstration</label>
+  <input type="checkbox" class="event-type" name="free-exhibition" value="free-exhibition" checked="true">
+  <label for="free-exhibition">Free exhibition</label>
+  <input type="checkbox" class="event-type" name="paying-exhibition" value="paying-exhibition" checked="true">
+  <label for="exhibition">Paying exhibition</label>
+  <input type="checkbox" class="event-type" name="paying-demonstration" value="paying-demonstration" checked="true">
+  <label for="paying-demonstration">Paying demonstration</label>
+  <input type="checkbox" class="event-type" name="unknown" value="unknown" checked="true">
+  <label for="unknown">Unknown</label>
+</div>
+
+<div class="inputs" id="years">
+  <input type="checkbox" class="year" name="1890" value="1890" checked="true">
+  <label for="1890">1890</label>
+  <input type="checkbox" class="year" value="1892" checked="true">
+  <label for="1892">1892</label>
+  <input type="checkbox" class="year" value="1893" checked="true">
+  <label for="1893">1893</label>
+</div>
+
+
+<script>
+
+let checkboxStates
+
+const jsontest = {"type": "FeatureCollection",
+"features": [
+
+{
+ "type": "Feature",
+ "geometry": {
+    "type": "Point",
+    "coordinates":  [22.17041015625,
+          60.42097096224303]
+ },
+ "properties": {
+ "Name":"Teatre Sant Andreu, Barcelona",
+ "year":'1890',
+ "month":"September",
+ "days":"",
+ "organiser":"Paz y Esperanza choir",
+ "eventType":"free-exhibition",
+ "notes":"for working class communities"
+ }
+},
+{
+ "type": "Feature",
+ "geometry": {
+    "type": "Point",
+    "coordinates":  [22.19701766967773,
+          60.42889282299763]
+ },
+ "properties": {
+ "Name":"Café Méndez Núñez, Vigo\n",
+ "year":'1893',
+ "month":"September",
+ "days":"21",
+ "organiser":"Mr Shelton, from Chicago",
+ "eventType":"unknown",
+ "notes":""
+ }
+}
+]};
+
+var map = L.map('map', {
+        center: [60.4342, 22.1892],
+        zoom: 14.49
+       
+    });
+
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  subdomains: 'abcd'
+}).addTo(map)
+
+const geojsonLayer = L.geoJSON(null,{
+	filter: (feature) => {
+  	const isYearChecked = checkboxStates.years.includes(feature.properties.year)
+    const isEventTypeChecked = checkboxStates.eventTypes.includes(feature.properties.eventType)
+    return isYearChecked && isEventTypeChecked //only true if both are true
+  }
+}).addTo(map)
+
+function updateCheckboxStates() {
+	checkboxStates = {
+  	years: [],
+    eventTypes: []
+  }
+  
+	for (let input of document.querySelectorAll('input')) {
+  	if(input.checked) {
+    	switch (input.className) {
+      	case 'event-type': checkboxStates.eventTypes.push(input.value); break
+        case 'year': checkboxStates.years.push(input.value); break
+      }
+    }
+  }
+}
+
+
+for (let input of document.querySelectorAll('input')) {
+  //Listen to 'change' event of all inputs
+  input.onchange = (e) => {
+    geojsonLayer.clearLayers()
+  	updateCheckboxStates()
+    geojsonLayer.addData(jsontest)   
+  }
+}
+
+
+/****** INIT ******/
+updateCheckboxStates()
+geojsonLayer.addData(jsontest)
+    
+        
+    
+    </script>
+
+    </body>
+
+</html>
