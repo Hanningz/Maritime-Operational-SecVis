@@ -9,7 +9,7 @@
     <!-- Fav Icon  -->
    
     <!-- Page Title  -->
-    <title>SecurityMap1</title>
+    <title>SecurityMap</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="./assets/css/dashlite.css?ver=1.4.0">
     <link id="skin-default" rel="stylesheet" href="./assets/css/theme.css?ver=1.4.0">
@@ -60,10 +60,8 @@ window.onload = function() {
             request.onload = function() {
                 if(request.status == 200) {
                   var data = request.responseText;
-		  var obj = JSON.parse(data);                  
-
-                  var da = obj.content[0];
-                  alert(da);
+		
+                  alert(data);
 
                   var test =  [22.17041015625,
                   60.42097096224303];
