@@ -9,7 +9,7 @@
     <!-- Fav Icon  -->
    
     <!-- Page Title  -->
-    <title>SecurityMap</title>
+    <title>SecurityMapTest</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="./assets/css/dashlite.css?ver=1.4.0">
     <link id="skin-default" rel="stylesheet" href="./assets/css/theme.css?ver=1.4.0">
@@ -60,8 +60,12 @@ window.onload = function() {
             request.onload = function() {
                 if(request.status == 200) {
                   var data = request.responseText;
-		
-                  alert(data);
+                  var obj = JSON.parse(data);
+                  var idx = obj.content.instances[0].resources[0].value;
+                  //var obj = JSON.stringify(data);
+                  var SecL = JSON.stringify(idx);
+                 
+                  //alert(a);
 
                   var test =  [22.17041015625,
                   60.42097096224303];
@@ -80,7 +84,7 @@ window.onload = function() {
         "Name": n1,
         "year":"1890",
         "time":"September",
-        "eventType":"30",
+        "eventType":SecL,
         "notes":"desc of events"
         }
         },
@@ -571,7 +575,7 @@ window.onload = function() {
                   }
               
                   var popupContent = "<div style='font-size: 16px; color: #ffffff; margin-bottom: 10px;'>Device:" + feature.properties.Name + 
-                    "<br>" + "Secuh:" + vary + "<br>" + feature.properties.time + "<br>"+ se + "</div>";
+                    "<br>" + "Secuh:" + feature.properties.eventType + vary + "<br>" + feature.properties.time + "<br>"+ se + "</div>";
                   
 
                   var customOptions =
@@ -593,6 +597,7 @@ window.onload = function() {
         }
 
 
+ //alert(a);
 
 
    </script>
