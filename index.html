@@ -60,7 +60,7 @@ window.onload = function() {
             request.onload = function() {
                 if(request.status == 200) {
                   var data = request.responseText;
-                  var da = JSON.stringify(data).content;
+                  var da = data.content;
                   alert(da);
 
                   var test =  [22.17041015625,
