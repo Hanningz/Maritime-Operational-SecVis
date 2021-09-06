@@ -60,10 +60,8 @@ window.onload = function() {
             request.onload = function() {
                 if(request.status == 200) {
                   var data = request.responseText;
-                  var a = JSON.stringify(data);
-
-                  //var obj = JSON.parse(e.data).msgContent.sensors[i].device_id;
-                  alert(data);
+                  var da = JSON.stringify(data).content;
+                  alert(da);
 
                   var test =  [22.17041015625,
                   60.42097096224303];
