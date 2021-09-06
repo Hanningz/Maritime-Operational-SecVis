@@ -9,7 +9,7 @@
     <!-- Fav Icon  -->
    
     <!-- Page Title  -->
-    <title>SecurityMapTest</title>
+    <title>SecurityMap</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="./assets/css/dashlite.css?ver=1.4.0">
     <link id="skin-default" rel="stylesheet" href="./assets/css/theme.css?ver=1.4.0">
@@ -49,10 +49,16 @@
 <body>
 
 <div id="map"></div>
+<button type="button" onclick="closeConnection()">off</button>
+
 
 <script type="text/javascript">
 
-window.onload = function() { 
+
+var processID = self.setInterval("fc()",1000);
+
+window.onload = function fc() { 
+  
             var url = "http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/30601/"
             var request = new XMLHttpRequest();
             request.open("GET",url);
@@ -598,6 +604,10 @@ window.onload = function() {
 
 
  //alert(a);
+
+ function closeConnection() {
+	    window.clearInterval(processID);  
+  }
 
 
    </script>
