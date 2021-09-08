@@ -3,15 +3,15 @@
 <head>
   <base href="">
   <meta charset="utf-8">
-  <meta name="author" content="Softnio">
+  <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="@@page-discription">
-    <!-- Fav Icon  -->
+
    
     <!-- Page Title  -->
-    <title>SecurityMapTest</title>
+    <title>MAPTEST</title>
     <!-- StyleSheets  -->
- 
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -24,7 +24,7 @@
 		}
 
 		#map {
-			width: 100%;
+			width: 80%;
 			height: 95%;
 		}
 
@@ -34,12 +34,9 @@
 
     .custom .leaflet-popup-tip,
     .custom .leaflet-popup-content-wrapper {
-      background-color: #272626;
-      opacity: 0.8;
+      background-color: #f3f1f1;
+      opacity: 0.9;
     }
-
-
-
 
 	</style>
 
@@ -56,23 +53,7 @@
     <script type="text/javascript">
 
       //var processID = self.setInterval("loadXMLDoc()",1000);
-      
-
-      function refreshDatam()
-            {     
-                x = 5;  // 5 Seconds
-
-                loadXMLDoc();// Do your thing here
-
-                setTimeout(refreshDatam, x*1000);
-            }
-      refreshDatam();
-                  
-
-      function loadXMLDoc(){
-  
-            
-            var url = "https://raw.githubusercontent.com/Hanningz/practices-for-Visualization-/master/data.json"
+            var url = "http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/6/"
             var request = new XMLHttpRequest();
             request.open("GET",url);
             request.send(null);
@@ -80,35 +61,35 @@
               if(request.status == 200) {
                 var data = request.responseText;
                  var obj = JSON.parse(data);
-                  var idx = obj.content.instances[0].resources[0].value;
-                  var t = obj.content.instances[0].resources[1].value;
+                  var la = obj.content.instances[0].resources[0].value; 
+                  var lo = obj.content.instances[0].resources[1].value;
+                  
                         //var obj = JSON.stringify(data);
-                  var SecL = JSON.stringify(idx);
-                  //var ti = JSON.stringify(t);
-                 //var arr = [10,20,30];
-                  //var index = Math.floor((Math.random()*arr.length));
-                 // var v = arr[index];
-                 //document.getElementById("test").innerHTML= v;
+                  var lav = JSON.stringify(la);
+                  var lov = JSON.stringify(lo);
+  
+                  alert(lav+lov);
       
-                  //alert(arr[index]);
-      
-                   var test =  [22.17041015625,
-                        60.42097096224303];
+                   var test =  [
+                22.20302581787109,
+                60.43029059808365
+              ];
                    var n1= "SensorTest01";
                    var jsontest = {"type": "FeatureCollection",
-                            "features": [
+               "features": [
       
-              {
+               {
               "type": "Feature",
               "geometry": {
                   "type": "Point",
-                  "coordinates":  test
+                  "coordinates":  [22.17981015625,
+                        60.42987096224303]
               },
               "properties": {
               "Name": n1,
               "year":"1890",
               "time":"September",
-              "eventType":SecL,
+              "eventType":"30",
               "notes":"desc of events"
               }
               },
@@ -119,14 +100,11 @@
               "year":"1890",
               "time":"September",
       
-              "eventType":"10",
+              "eventType":"30",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
-              "coordinates": [
-                22.20302581787109,
-                60.43029059808365
-              ]
+              "coordinates": test
               }
               },
               {
@@ -135,7 +113,7 @@
               "year":"1890",
               "time":"September",
       
-              "eventType":"10",
+              "eventType":"20",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -152,7 +130,7 @@
               "year":"1890",
               "time":"September",
       
-              "eventType":"10",
+              "eventType":"20",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -211,6 +189,148 @@
               ]
               }
               },
+
+              {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice06",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.207317352294922,
+          60.43338243248793
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.20508575439453,
+        60.43744795885954
+    ]
+    }
+    },
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.16543197631836,
+        60.42181831225118
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"20",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.156505584716797,
+        60.41542027374547
+    ]
+    }
+    },
+    {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice06",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"20",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.155561447143555,
+          60.4224961763612
+        ]
+        }
+        },
+    
+        {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice17",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"20",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.158308029174805,
+          60.41931856622256
+        ]
+        }
+        },
+        {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice17",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"20",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.1498966217041,
+            60.4105891326906
+        ]
+        }
+        },
+    
+        {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice17",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"20",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.15195655822754,
+            60.414996518149216
+        ]
+        }
+        },
+    
               {
               "type": "Feature",
               "properties": { "Name":"CameraSensorATest",
@@ -337,7 +457,7 @@
               "time":"September",
               "days":"",
               "organiser":"desc of events",
-              "eventType":"20",
+              "eventType":"30",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -500,7 +620,462 @@
               ]
               }
               },
-      
+              {
+              "type": "Feature",
+              "properties": { "Name":"SensorDevice17",
+              "year":"1890",
+              "time":"September",
+              "days":"",
+              "organiser":"desc of events",
+              "eventType":"10",
+              "notes":"desc of events"},
+              "geometry": {
+              "type": "Point",
+              "coordinates": [
+              22.173757553100582,
+          60.421309904895715
+              ]
+              }
+              },
+              {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice06",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.160797119140625,
+        60.41563214947344
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.162857055664062,
+        60.42351294603258
+    ]
+    }
+    },
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.199764251708984,
+        60.433255376594396
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.151355743408203,
+        60.419954113089155
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice06",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.179336547851562,
+        60.42550402788162
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.1828556060791,
+          60.42647834265461
+    ]
+    }
+    },
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.192039489746094,
+        60.42749498781193
+    ]
+    }
+    },
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice06",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.203712463378906,
+          60.43278950073571
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.194700241088867,
+        60.42770678488512
+    ]
+    }
+    },
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.182340621948242,
+        60.42440259341581
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.177019119262695,
+          60.42228434534471
+    ]
+    }
+    },
+    {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice06",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"10",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.16620445251465,
+          60.42347058126437
+        ]
+        }
+        },
+    
+        {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice17",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"10",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.178049087524414,
+            60.418725377941705
+        ]
+        }
+        },
+        {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice17",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"10",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.16586112976074,
+            60.41762371385904
+        ]
+        }
+        },
+        {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice06",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.21487045288086,
+        60.439734593969625
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.211952209472656,
+          60.43761734475579
+    ]
+    }
+    },
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.219762802124023,
+        60.441894046063425
+    ]
+    }
+    },
+
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.218732833862305,
+          60.43791376794984
+    ]
+    }
+    },
+    {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice06",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"10",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.212553024291992,
+            60.436473972823286
+        ]
+        }
+        },
+    
+        {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice17",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"10",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.214698791503903,
+          60.43537290998097
+        ]
+        }
+        },
+        {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice17",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"10",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.215900421142578,
+            60.43338243248793
+        ]
+        }
+        },
+    
+        {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice17",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"10",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.216758728027344,
+          60.441258927991655
+        ]
+        }
+        },
+    
+        {
+        "type": "Feature",
+        "properties": { "Name":"SensorDevice17",
+        "year":"1890",
+        "time":"September",
+        "days":"",
+        "organiser":"desc of events",
+        "eventType":"10",
+        "notes":"desc of events"},
+        "geometry": {
+        "type": "Point",
+        "coordinates": [
+            22.21014976501465,
+            60.434017704505926
+        ]
+        }
+        },
+    
+    {
+    "type": "Feature",
+    "properties": { "Name":"SensorDevice17",
+    "year":"1890",
+    "time":"September",
+    "days":"",
+    "organiser":"desc of events",
+    "eventType":"10",
+    "notes":"desc of events"},
+    "geometry": {
+    "type": "Point",
+    "coordinates": [
+        22.200794219970703,
+          60.42973996658771
+    ]
+    }
+    },
+
+              {
+              "type": "Feature",
+              "properties": { "Name":"SensorDevice17",
+              "year":"1890",
+              "time":"September",
+              "days":"",
+              "organiser":"desc of events",
+              "eventType":"10",
+              "notes":"desc of events"},
+              "geometry": {
+              "type": "Point",
+              "coordinates": [
+              22.17041015625,
+              60.42097096224303
+              ]
+              }
+              },
       
               {
               "type": "Feature",
@@ -529,29 +1104,25 @@
                       });
               
                       var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-              mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+                      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                      mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
       
                       L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}).addTo(map)
                       
-                      map._onResize(); 
-
-                      
-      
             
-            //L.geoJSON(jsontest).addTo(map);    
+                    //L.geoJSON(jsontest).addTo(map);    
           
                       var healthy = {
-                            radius: 12,
-                            fillColor: "#00A300",
+                            radius: 15,
+                            fillColor: "#433ECA",
                             weight: 0,
                             opacity: 0,
                             fillOpacity: 0.6
                         };
       
                       var risks = {
-                            radius: 22,
-                            fillColor: "#ff7800",
+                            radius: 18,
+                            fillColor: "#BA5A47",
                             weight: 0,
                             opacity: 0,
                             fillOpacity: 0.6
@@ -559,11 +1130,10 @@
       
                       var attackedOnes = {
                             radius: 18,
-                            fillColor: "#FF8A8A",
-                          
+                            fillColor: "#F74624",
                             weight: 0,
                             opacity: 0,
-                            fillOpacity: 0.6
+                            fillOpacity: 0.7
                         };
       
                       L.geoJSON(jsontest, {
@@ -575,7 +1145,8 @@
                                   return L.circleMarker(latlng, risks);
                               } else if (feature.properties.eventType == "30")
                                 {
-                                  return L.circleMarker(latlng, attackedOnes);
+                                 
+                                  return L.circleMarker(latlng, attackedOnes); 
                                 }
                         },
                         onEachFeature: onEachFeature
@@ -602,25 +1173,29 @@
                             break;
                         }
                     
-                        var popupContent = "<div style='font-size: 16px; color: #ffffff; margin-bottom: 10px;'>Device:" + feature.properties.Name + 
-                          "<br>" + "Secuh:" + feature.properties.eventType + vary + "<br>" + feature.properties.time + "<br>"+ se + "</div>";
-                        
-      
+                        var popupContent = "<div style='font-size: 16px; color: #272626; margin-bottom: 10px;'>Device:" + feature.properties.Name + 
+                         "<br>" + "Secuh:" + vary + "<br>" + feature.properties.time + "<br>"+ se + "</div>";
+          
+
                         var customOptions =
-                          {
-                              'maxWidth': '300',
-                              'className' : 'custom'
-                          }
-      
-                      
-      
+                        {
+                          'maxWidth': '300',
+                          'className' : 'custom'
+                        }
+
+         
+
                         layer.bindPopup(popupContent,customOptions);
+                        
+                        
+                        //bindTooltip bindPopup
+                        //layer.bindTooltip(feature.properties.time);
                       }
       
                       }
                   }
       
-      }
+      
       
 
      
