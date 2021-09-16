@@ -7,84 +7,214 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="@@page-discription">
 
-   
+  
     <!-- Page Title  -->
     <title>OperationalSecMap</title>
     <!-- StyleSheets  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="apexcharts.css">
+
+    <!-- leaflets  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="leaflet-providers.js"></script>
     
-	<style>
+  
+    <!-- leafletscluster markers and icons -->
+    <link rel="stylesheet" href="MarkerCluster.css" />
+    <link rel="stylesheet" href="MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/"></script>
+    <script src="leaflet.markercluster-src.js"></script>
+    <link rel="stylesheet" href="dist/L.Icon.Pulse.css" />
+    <script src="dist/L.Icon.Pulse.js"></script>
+   
 
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
+  <style>
 
-		#map {
-			width: 80%;
-			height: 95%;
-		}
+@import url('https://fonts.googleapis.com/css?family=Oswald|Poppins');
+        body {
+            /* font-family: 'Oswald', sans-serif; */
+            font-family: 'Poppins', sans-serif;
+        }
 
-    input[type=checkbox] {
-      transform: scale(1.5);
-    }
+        .card-box {
+          
+            position: relative;
+            width: 280px;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+         
+            position: relative;
+            cursor: pointer;
+          
+        }
+
+        
+        .card-box:after {
+            display: block;
+            background: #2196F3;
+          
+            content: '';
+            width: 100%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+        }
+
+        .card-title h2 {
+            margin: 0;
+            padding-top: 2%;
+            color: #05365c;
+            font-family: 'Oswald', sans-serif;
+          
+            font-size: 20px;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .card-title p {
+            margin: 0;
+            margin-bottom: 2px;
+            font-size: 15px;
+            font-weight: 460;
+            color:'#070707';
+        }
+
+        .card-link a {
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            color: #FF5722;
+            font-size: 17px;
+            float: right;
+        }
+
+
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+    #map {
+          width: 100%;
+          height: 100%;
+        } 
 
     .custom .leaflet-popup-tip,
     .custom .leaflet-popup-content-wrapper {
-      background-color: #f3f1f1;
-      opacity: 0.8;
-    }
+     background-color: #ffffff;
+          opacity: 0.65;
+        }
 
-	</style>
+    .marker-cluster-small {
+          background-color: rgba(218, 94, 94, 0.6);
+          }
+          .marker-cluster-small div {
+          background-color: rgba(226, 36, 36, 0.6);
+          }
+          .marker-cluster-medium {
+          background-color: #d6dadb;
+          }
+          .marker-cluster-medium div {
+          background-color: #35a1af;
+          }
+
+
+      .box{
+          position: absolute;
+          top: 0;
+          z-index: 9999;
+          text-align: left;
+          
+          margin-left: 6%; /* half of the width */
+          margin-top: 1%;
+          background-color:white;
+          Opacity: 0.97;
+          height: 13%;
+         
+      }
+
+
+
+
+.nk-cov-data .amount { font-size: 2rem; line-height: 1.1; font-weight: 700; color: #364a63; }
+
+.overline-title { float: left; margin-left: 4%; font-size: 11px; line-height: 1.2; letter-spacing: 0.2em; color: #707172; font-weight: 700; font-family: Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
+  </style>
 
 </head>
 
 <body>
  
-<div id="map"></div>
+  <div class="box col-lg-3" style="padding-bottom: px;">
 
-    <!-- JavaScript -->
+    <h5 style="font-size: 20px; margin-top: 18px;">Operational Cybersecurity Posture</h5>
 
-   
-    <script type="text/javascript">
+    <div class="row">
+     
+        <h6 class="overline-title" style="font-size: 12px; margin-top: 7px;">Total Assets: 226</h6>
+              <div class="btn-group btn-group-toggle" data-toggle="buttons" title="" style="margin-top: 10px;margin-left: 5%; width: 100%; ">
+             
+                <label class="btn" style="height: 3px; width: 50%; background-color: #08979D;">
+                  <input type="radio" name="button" id="option1" autocomplete="off" title="Healthy devices : 189"> 
+                </label>
+                <label class="btn" style="height: 3px; width: 15%; background-color: #EECA66;">
+                  <input type="radio" name="options" id="option2" autocomplete="off" title="Low risky devices : 19"> 
+                </label>
+
+                <label class="btn" style="height: 3px; width: 10%; background-color: #A57891;">
+                  <input type="radio" name="options" id="option2" autocomplete="off" title="High risky devices : 9"> 
+                </label>
+              
+                <label class="btn" style="height: 3px; width: 5%; background-color: #626363;">
+                  <input type="radio" name="options" id="option3" autocomplete="off" title="Under Attack : 2"> 
+                </label>
+                <label class="btn" style="height: 3px; width: 2%; background-color: #A29E93;">
+                  <input type="radio" name="options" id="option2" autocomplete="off" title="Offline : 3"> 
+                </label>
+
+              </div>
+          
+      </div>  
+  </div>
+
+<div class="" id="map"></div>
+
+<!------------------- JavaScript ------------------------>
+
+<script type="text/javascript">
 
       var th;
       var td;
-      var tm;
-      var dl;
-      var da; 
 
       async function loadNames() {
        
-        var response = await fetch('http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/30601/');
-        var lresponse = await fetch('http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/6/');
-	var sresponse = await fetch('http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/30602/');
-        var sech = await response.json();
-        var loc = await lresponse.json();
-        var iss = await sresponse.json();
-	      
-        th = JSON.stringify(sech.content.instances[0].resources[0].value);
-	tm = JSON.stringify(sech.content.instances[0].resources[1].value);
-	      
-        dl = JSON.stringify(loc.content.instances[0].resources[0].value);
-        da = JSON.stringify(loc.content.instances[0].resources[1].value);
-	      
-	      
+        var response = await fetch('https://raw.githubusercontent.com/Hanningz/practices-for-Visualization-/master/data.json');
+        var tresponse = await fetch('https://raw.githubusercontent.com/Hanningz/practices-for-Visualization-/master/datam.json');
+        var names = await response.json();
+        var wode = await tresponse.json();
+       
+        th = JSON.stringify(names.content.instances[0].resources[0].value);
+        td = JSON.stringify(wode.content.instances[0].resources[2].value);
 
         //alert(td+th); 
-        // logs [{ name: 'Joker'}, { name: 'Batman' }]
+        
         var test =  [22.17041015625,
                         60.42097096224303];
-	      
-        var n1= "SensorTest0169";
-      
+        var n1= "SensorTest01";
+        var et= th;
                    
         var jsontest = {"type": "FeatureCollection",
                "features": [
@@ -93,13 +223,14 @@
               "type": "Feature",
               "geometry": {
                   "type": "Point",
-                  "coordinates":  [da,dl]
+                  "coordinates":  [22.17981015625,
+                        60.42987096224303]
               },
               "properties": {
               "Name": n1,
               "year":"1890",
-              "time":tm,
-              "eventType":th,
+              "time":"September",
+              "eventType":et,
               "notes":""
               }
               },
@@ -111,12 +242,12 @@
               "time":"September",
       
               "eventType":"10",
-              "notes":"desc of events"},
+              "notes":""},
               "geometry": {
               "type": "Point",
               "coordinates": [
-               22.17041015625,
-               60.42097096224303
+                22.20302581787109,
+                60.43029059808365
               ]
               }
               },
@@ -127,7 +258,7 @@
               "time":"September",
       
               "eventType":"20",
-              "notes":"desc of events"},
+              "notes":""},
               "geometry": {
               "type": "Point",
               "coordinates": [
@@ -144,7 +275,7 @@
               "time":"September",
       
               "eventType":"20",
-              "notes":"desc of events"},
+              "notes":""},
               "geometry": {
               "type": "Point",
               "coordinates": [
@@ -160,7 +291,7 @@
               "time":"September",
       
               "eventType":"10",
-              "notes":"desc of events"},
+              "notes":""},
               "geometry": {
               "type": "Point",
               "coordinates": [
@@ -176,7 +307,7 @@
               "time":"September",
       
               "eventType":"10",
-              "notes":"desc of events"},
+              "notes":""},
               "geometry": {
               "type": "Point",
               "coordinates": [
@@ -191,9 +322,9 @@
               "year":"1890",
               "time":"September",
               "days":"",
-              "organiser":"desc of events",
+              "organiser":"",
               "eventType":"10",
-              "notes":"desc of events"},
+              "notes":""},
               "geometry": {
               "type": "Point",
               "coordinates": [
@@ -209,9 +340,9 @@
     "year":"1890",
     "time":"September",
     "days":"",
-    "organiser":"desc of events",
-    "eventType":"10",
-    "notes":"desc of events"},
+    "organiser":"",
+    "eventType":"30",
+    "notes":""},
     "geometry": {
     "type": "Point",
     "coordinates": [
@@ -227,9 +358,9 @@
     "year":"1890",
     "time":"September",
     "days":"",
-    "organiser":"desc of events",
+    "organiser":"",
     "eventType":"10",
-    "notes":"desc of events"},
+    "notes":""},
     "geometry": {
     "type": "Point",
     "coordinates": [
@@ -246,7 +377,7 @@
     "days":"",
     "organiser":"desc of events",
     "eventType":"10",
-    "notes":"desc of events"},
+    "notes":""},
     "geometry": {
     "type": "Point",
     "coordinates": [
@@ -280,7 +411,7 @@
         "time":"September",
         "days":"",
         "organiser":"desc of events",
-        "eventType":"20",
+        "eventType":"10",
         "notes":"desc of events"},
         "geometry": {
         "type": "Point",
@@ -333,7 +464,7 @@
         "time":"September",
         "days":"",
         "organiser":"desc of events",
-        "eventType":"20",
+        "eventType":"10",
         "notes":"desc of events"},
         "geometry": {
         "type": "Point",
@@ -436,7 +567,7 @@
               "time":"September",
               "days":"",
               "organiser":"desc of events",
-              "eventType":"20",
+              "eventType":"10",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -453,7 +584,7 @@
               "time":"September",
               "days":"",
               "organiser":"desc of events",
-              "eventType":"30",
+              "eventType":"10",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -470,7 +601,7 @@
               "time":"September",
               "days":"",
               "organiser":"desc of events",
-              "eventType":"30",
+              "eventType":"10",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -487,7 +618,7 @@
               "time":"September",
               "days":"",
               "organiser":"desc of events",
-              "eventType":"30",
+              "eventType":"20",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -504,7 +635,7 @@
               "time":"September",
               "days":"",
               "organiser":"desc of events",
-              "eventType":"attacked",
+              "eventType":"10",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -572,7 +703,7 @@
               "time":"September",
               "days":"",
               "organiser":"desc of events",
-              "eventType":"attacked",
+              "eventType":"10",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -640,7 +771,7 @@
               "time":"September",
               "days":"",
               "organiser":"desc of events",
-              "eventType":"10",
+              "eventType":"20",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -833,7 +964,7 @@
     "time":"September",
     "days":"",
     "organiser":"desc of events",
-    "eventType":"10",
+    "eventType":"0",
     "notes":"desc of events"},
     "geometry": {
     "type": "Point",
@@ -885,7 +1016,7 @@
         "time":"September",
         "days":"",
         "organiser":"desc of events",
-        "eventType":"10",
+        "eventType":"0",
         "notes":"desc of events"},
         "geometry": {
         "type": "Point",
@@ -955,7 +1086,7 @@
     "time":"September",
     "days":"",
     "organiser":"desc of events",
-    "eventType":"10",
+    "eventType":"0",
     "notes":"desc of events"},
     "geometry": {
     "type": "Point",
@@ -1072,23 +1203,7 @@
     }
     },
 
-              {
-              "type": "Feature",
-              "properties": { "Name":"SensorDevice17",
-              "year":"1890",
-              "time":"September",
-              "days":"",
-              "organiser":"desc of events",
-              "eventType":"10",
-              "notes":"desc of events"},
-              "geometry": {
-              "type": "Point",
-              "coordinates": [
-              22.17041015625,
-              60.42097096224303
-              ]
-              }
-              },
+             
       
               {
               "type": "Feature",
@@ -1108,187 +1223,582 @@
               }
               ]};
       
-                   var map = L.map("map", {
+
+        var addressPoints = [
+            [60.4313, 22.2143, "2"],
+            [60.4301, 22.2119, "3"],
+            [60.4403, 22.2205, "6"],
+            [60.4379, 22.2187, "4"],
+           
+            [60.4385, 22.2219, "10"]
+
+        ]
+
+
+        var map = new L.map("map", {
       
                         center: [60.4336, 22.1930],//22.2177, 60.438  60.4216, 22.1982
                         zoom: 14.49
                     //center: [60.4349, 22.1892],
                     //zoom: 14.19
                       });
-              
-                   var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                      mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+        //map.invalidateSize(true);
+        
+
+        var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+        L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}).addTo(map)
       
-                      L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}).addTo(map)
-                      
-            
-                    //L.geoJSON(jsontest).addTo(map);    
+        //var pulsingIcon = L.icon.pulse({iconSize:[18,18],color:'#d5759a'});
+        //var ao = L.marker([60.42097096224303, 22.17041015625],{icon: pulsingIcon}).addTo(map); 
+      
+        //L.geoJSON(jsontest).addTo(map);    
           
-                      var healthy = {
+        var healthy = {
+                            radius: 6,
+                            fillColor: "#08979D",
+                            weight: 0,
+                            opacity: 0,
+                            fillOpacity: 0.76
+                        };
+
+        var ol = {
                             radius: 15,
-                            fillColor: "#433ECA",
-                            weight: 0,
-                            opacity: 0,
-                            fillOpacity: 0.6
-                        };
-      
-                      var risks = {
-                            radius: 18,
-                            fillColor: "#BA5A47",
-                            weight: 0,
-                            opacity: 0,
-                            fillOpacity: 0.6
-                        };
-      
-                      var attackedOnes = {
-                            radius: 18,
-                            fillColor: "#F74624",
+                            fillColor: "#A29E93",
                             weight: 0,
                             opacity: 0,
                             fillOpacity: 0.7
                         };
+
       
-                      L.geoJSON(jsontest, {
+        var risks = {
+                            radius: 15,
+                            fillColor: "#6060C4", //#FF5100
+                            weight: 0,
+                            opacity: 0,
+                            fillOpacity: 0.8
+                        };
+      
+        var attackedOnes = {
+                            radius: 17,
+                            fillColor: "#c95d4e",
+                            weight: 0,
+                            opacity: 0,
+                            fillOpacity: 0.9
+
+  
+                        };
+
+  //high risk vis;   
+        var atest = [
+          [60.4344, 22.1952],
+          [60.4214, 22.1785],
+          [60.4365, 22.2052],
+          [60.4256, 22.1528],
+          [60.4331, 22.2248],
+          [60.4233, 22.1907]
+          ]
+      
+
+
+      for (var i = 0; i < atest.length; i++) {
+          var id = i;
+          var cx= "marker" + id;
+          var pictures = L.marker(atest[i], {
+                      icon: L.divIcon({
+                          className: 'leaflet-echart-icon',
+                          iconSize: [30, 30],
+                          html: '<div id="' + cx + '"style="width: 60px; height: 60px; position: relative; background-color: transparent;"></div>'
+                      })
+                  }).addTo(map);
+                  
+          var myChart = echarts.init(document.getElementById(cx));
+
+          var colorPalette = ['#C8AEAC']
+                
+          option = {
+                    
+                      tooltip: {
+                          trigger: 'item',
+                          //设置背景图片 rgba格式
+                        color: "black",
+                        borderWidth: "1", //边框宽度设置1
+                        borderColor: "ffffff", //设置边框颜色
+                        textStyle: {
+                          color: "#666666" //设置文字颜色
+                        },
+                        formatter: '{b0}',
+
+                      },
+                      
+                      series: [
+                          {
+                              color: colorPalette,
+                              name: 'Security issues',
+                              type: 'pie',
+                              selectedMode: 'single',
+                              radius: [0, '24%'],
+                              
+                              labelLine: {
+                                  show: false
+                              },
+                              data: [
+                                
+                                  
+                                  {value: "2", name: 'Security issues'}
+                              ]
+                          },
+                          {
+                            color: '#A57891',
+                              name: '',
+                              type: 'pie',
+                              radius: ['26%', '78%'],
+                              labelLine: {
+                                  length: 30,
+                              },
+                              label: {
+                                show: false
+                              },
+                              data: [
+                                  {value: 600, name: 'High risky'}
+                                
+                            
+                              ]
+                          }
+                      ]
+                  };
+
+          myChart.setOption(option);
+
+          }
+
+
+
+ //Low risk vis;   
+
+ var atestk = [
+          [60.4286, 22.1990],
+          [60.4410, 22.2144],
+          [60.4226, 22.2052],
+          [60.4256, 22.1687]
+          ]
+      
+
+
+          for (var j = 0; j < atestk.length; j++) {
+          var idl = j;
+          var cxl= "marker" + idl;
+          var picturel = L.marker(atestk[j], {
+                      icon: L.divIcon({
+                          className: 'leaflet-echart-icon',
+                          iconSize: [30, 30],
+                          html: '<div id="' + cxl + '"style="width: 50px; height: 60px; position: relative; background-color: transparent;"></div>'
+                      })
+                  }).addTo(map);
+                  
+          var myChart = echarts.init(document.getElementById(cxl));
+
+          var colorPalette = ['#C8AEAC']
+                
+          option = {
+                    
+                      tooltip: {
+                          trigger: 'item',
+                          //设置背景图片 rgba格式
+                        color: "black",
+                        borderWidth: "1", //边框宽度设置1
+                        borderColor: "ffffff", //设置边框颜色
+                        textStyle: {
+                          color: "#666666" //设置文字颜色
+                        },
+                        formatter: '{b0}',
+
+                      },
+                      
+                      series: [
+                          {
+                              color: colorPalette,
+                            
+                              name: 'Security issues',
+                              type: 'pie',
+                              selectedMode: 'single',
+                              radius: [0, '24%'],
+                              
+                              labelLine: {
+                                  show: false
+                              },
+                              data: [
+                                
+                                  
+                                  {value: "2", name: 'Security issues'}
+                              ]
+                          },
+                          {
+                            color: '#EECA66',
+                              name: '',
+                              type: 'pie',
+                              radius: ['26%', '62%'],
+                              labelLine: {
+                                  length: 30,
+                              },
+                              label: {
+                                show: false
+                              },
+                              data: [
+                                  {value: 600, name: 'Low risky'}
+                                
+                            
+                              ]
+                          }
+                      ]
+                  };
+
+          myChart.setOption(option);
+
+          }
+
+
+
+
+
+
+
+
+
+        //var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:'red'});
+        //var ao = L.marker(latlng,{icon: pulsingIcon}).addTo(map);               
+      
+        L.geoJSON(jsontest, {
                             pointToLayer: function (feature, latlng) {
                               if (feature.properties.eventType == "10") {
+                              return L.circleMarker(latlng, healthy);
+                          } else if (feature.properties.eventType == "0")
+                            {
+                                return L.circleMarker(latlng, ol);
+                            }
+                          else if (feature.properties.eventType == "20")
+                            {
                                 return L.circleMarker(latlng, healthy);
-                          } else if (feature.properties.eventType == "20")
+                            } else if (feature.properties.eventType == "30")
                               {
-                                  return L.circleMarker(latlng, risks);
-                              } else if (feature.properties.eventType == "30")
-                                {
-                                 
-                                  return L.circleMarker(latlng, attackedOnes); 
-                                }
+                                
+                                var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:'#5A2E2D'});
+                                var ao = L.marker(latlng,{icon: pulsingIcon});
+                                return ao;
+                              }
                         },
                         onEachFeature: onEachFeature
                         }).addTo(map);      
       
-                      
-                      function onEachFeature(feature, layer) {
-      
-                        var vary;
-                        var se;
-                        var template = '<form id="popup-form" style="height: 20px;">\
-                                        <label for="input-speed">Any issues?</label>\
-                                        <input id="input-speed" class="popup-input" type="text" />\
-                                        <button id="button-submit" type="button">Send</button>\
-                                        <div id="vi"></div>\
-                                        </form>';
-                        
-                        
 
 
+                  
+        function onEachFeature(feature, layer) {
       
-                        switch (feature.properties.eventType) {
-                          case "10":  //healthy ones
-                            vary = "Good";
+        var vary;
+        var ic;
+        var se;
+        var template = '<form id="popup-form">\
+                       <textarea id="input-speed" class="popup-input" type="text" style="height: 41px;"></textarea>\
+                       <div id="vi"></div>\
+                       <input class="w3-radio" type="radio" name="gender" value="male" checked>\
+                       <label>Urgent</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="female">\
+                       <label>Minor</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Minor</label><br>\
+                       <button id="button-submit" type="button" class="btn btn-primary btn-sm" style="margin-top: 6px;">Send</button>\
+                       </form>';
+
+        var popbase = '<div class="card-box">\
+                    <div class="card-title" >\
+                        <h2><i class="fas fa-virus" style="color:red;"></i> Malware Detection</h2>\
+                        <p>SensorTest01</p>\
+                        <p>Security Health: Under Attack!</p>\
+                        <p>Time: 2021-9-16T12:16:37+03:00</p>\
+                        <p>Prvious Issues: </p>\
+                        <p style="font-size: 11px;">Anything new?</p>\
+                    </div>\
+                    <div class="card-link" style="margin-top: 9px;">\
+                      <form id="popup-form">\
+                       <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
+                       <div style="margin-bottom: 6px;" id="vi"></div>\
+                       <input class="w3-radio" type="radio" name="gender" value="male">\
+                       <label>Urgent</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="female">\
+                       <label>Low risk</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Attacked</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Offline</label>\
+                       </form>\
+                        <a class="c-link" id="button-submit" type="button">Send\
+                            <i class="fa fa-angle-right"></i>\
+                        </a>\
+                    </div>\
+                </div>';
+
+        var popbaseN = '<div class="card-box">\
+                    <div class="card-title" >\
+                      <h2><i class="material-icons" style="color:#469324; font-size: 19px;">security</i> SensorTest01</h2>\
+                        <p>Security Health: Good</p>\
+                        <p>Time: 2021-9-16T12:16:37+03:00</p>\
+                        <p>Prvious Issues: None</p>\
+                        <p style="font-size: 11px;">Anything new?</p>\
+                    </div>\
+                    <div class="card-link" style="margin-top: 9px;">\
+                      <form id="popup-form">\
+                       <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
+                       <div style="margin-bottom: 6px;" id="vi"></div>\
+                       <input class="w3-radio" type="radio" name="gender" value="male">\
+                       <label>Urgent</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="female">\
+                       <label>Low risk</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Attacked</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Offline</label>\
+                       </form>\
+                        <a class="c-link" id="button-submit" type="button">Send\
+                            <i class="fa fa-angle-right"></i>\
+                        </a>\
+                    </div>\
+                </div>';
+
+                
+
+        var popbaseR = '<div class="card-box">\
+                    <div class="card-title" >\
+                      <h2><i class="fas fa-exclamation-triangle"></i> SensorTest01</h2>\
+                        <p>Security Health: Good</p>\
+                        <p>Time: 2021-9-16T12:16:37+03:00</p>\
+                        <p>Prvious Issues:</p>\
+                        <p style="font-size: 11px;">Anything new?</p>\
+                    </div>\
+                    <div class="card-link" style="margin-top: 9px;">\
+                      <form id="popup-form">\
+                       <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
+                       <div style="margin-bottom: 6px;" id="vi"></div>\
+                       <input class="w3-radio" type="radio" name="gender" value="male">\
+                       <label>Urgent</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="female">\
+                       <label>Low risk</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Attacked</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Offline</label>\
+                       </form>\
+                        <a class="c-link" id="button-submit" type="button">Send\
+                            <i class="fa fa-angle-right"></i>\
+                        </a>\
+                    </div>\
+                </div>';
+
+                var popbase0 = '<div class="card-box">\
+                    <div class="card-title" >\
+                      <h2><i class="material-icons">portable_wifi_off</i> SensorTest07</h2>\
+                        <p>Security Health: Offline</p>\
+                        <p>Time: 2021-9-16T12:16:37+03:00</p>\
+                        <p>Prvious Issues: None</p>\
+                        <p style="font-size: 11px;">Anything new?</p>\
+                    </div>\
+                    <div class="card-link" style="margin-top: 9px;">\
+                      <form id="popup-form">\
+                       <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
+                       <div style="margin-bottom: 6px;" id=""></div>\
+                       <input class="w3-radio" type="radio" name="gender" value="male">\
+                       <label>Urgent</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="female">\
+                       <label>Low risk</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Attacked</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Offline</label>\
+                       </form>\
+                        <a class="c-link" id="button-submit" type="button">Send\
+                            <i class="fa fa-angle-right"></i>\
+                        </a>\
+                    </div>\
+                </div>';
+        
+          var vis = '<div class="card-box">\
+                  <div class="card-link" style="margin-top: 9px;">\
+                    <div id="radial-chart-primary"></div>\
+                    </div>\
+                </div>';
+        
+
+        var popupContentw = '<div class="card-box"><div class="card-title" >\
+                      <h2><i class="fas fa-paper-plane" style="color: #FF5722;"></i> The issues has been sent ！</h2>\
+                    </div>\
+                </div>';
+
+
+
+                var x =  '<div class="row"><div class="col-md-4"><div class="card-box">\
+        <div class="card-title"><h2>Lorem ipsum dolor si.</h2><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, </p>\
+        </div><div class="card-link"><a href="" class="c-link">Learn More</a>\
+      </div></div></div>\
+<div class="col-md-4">\
+    <div class="card-box">\
+        <div class="card-title">\
+            <h2>Lorem ipsum dolor si.</h2>\
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, </p>\
+        </div><div class="card-link"><a href="" class="c-link">Learn More\
+                <i class="fa fa-angle-right"></i></a></div></div></div>\
+<div class="col-md-4">\
+    <div class="card-box">\
+        <div class="card-title">\
+            <h2>Lorem ipsum dolor si.</h2>\
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, </p>\
+        </div></div></div></div>';
+
+        var customOptions =
+            {
+              'maxWidth': '500',
+              'className' : 'custom'
+            }
+
+                        
+        switch (feature.properties.eventType) {
+
+                          case "0":  //healthy ones
+                            vary = popbase0;
                             se = "all fine";
+                            ic="SEnsorname";
+                            break;
+                          case "10":  //healthy ones
+                            vary = popbaseN;
+                            se = "all fine";
+                            ic="SEnsorname";
                             break;
                           case "20": //risky ones 
-                            vary = "Risky";
+                            vary = popbaseR;
                             se = "risky";
+                            ic="<i class='material-icons' style='color:pink'>warning</i>Malware Detection!";
                             break;
                           case "30": //under atatck ones
-                            vary = "Underattack!";
+                            vary = popbase;
                             se = "Malware Detetcion";
+                            ic="<i class='material-icons' style='color:red'>error</i> Malware Detection!";
                             break;
                         }
                     
-                        var popupContent = "<div style='font-size: 16px; color: #272626; margin-bottom: 10px;'><i class='material-icons' style='color:red'>warning</i> Device:" + feature.properties.Name + 
-                         "<br>" + "Security Health: " + vary + "<br>" + feature.properties.time + "<br>"+ se  + "</div>" + "issues is " + template;
-          
-                        var popupContentw = "okay sent!";
+        var popupContent = vary;
 
-                        var customOptions =
-                        {
-                          'maxWidth': '300',
-                          'className' : 'custom'
-                        }
+  
+        
+        pictures.bindPopup(popbaseN);
 
-         
+       
 
-                        layer.bindPopup(popupContent,customOptions);
+        layer.bindPopup(popupContent,customOptions);
 
-                        layer.on('click', layerClickHandler);
+        layer.on('click', layerClickHandler);
                         
-                        function layerClickHandler (e) {
-                          var marker = e.target;
-                              properties = e.target.feature.properties;
-                          
-                          if (marker.hasOwnProperty('_popup')) {
-                              //circleMarker.unbindPopup();
-                          }
+        function layerClickHandler (e) {
 
-                          marker.bindPopup(popupContent);
-                          marker.openPopup();
+             
 
-                          L.DomUtil.get('vi').textContent = properties.notes;
+              var marker = e.target;
+                    properties = e.target.feature.properties;
+                                
+              if (marker.hasOwnProperty('_popup')) {
+                                    //circleMarker.unbindPopup();
+              }
 
-                          var inputSpeed = L.DomUtil.get('input-speed');
-                          inputSpeed.value = properties.notes;
-                          L.DomEvent.addListener(inputSpeed, 'change', function (e) {
-                              var temp = e.target.value;
-                	      const http = new EasyHTTP;
-                // User Data
-                	      var data = {"id":3,"value":temp};
+              marker.bindPopup(popupContent);
+              marker.openPopup();
 
-			      // Update Post
-			      http.put(
-			      'http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/30602/0/3',
-				data)
-			      .then(data => console.log(data))
-			      .catch(err => console.log(err));
-                          });
+              L.DomUtil.get('vi').textContent = properties.notes;
 
-                          var buttonSubmit = L.DomUtil.get('button-submit');
-                          L.DomEvent.addListener(buttonSubmit, 'click', function (e) {
-                            e.preventDefault();
-                            marker.bindPopup(popupContentw);
-                          });
+              var inputSpeed = L.DomUtil.get('input-speed');
+              //inputSpeed.value = properties.notes;
+              inputSpeed.value = " ";
+              L.DomEvent.addListener(inputSpeed, 'change', function (e) {
+               properties.notes = e.target.value;
+              });
 
-                      }
+              var buttonSubmit = L.DomUtil.get('button-submit');
+              L.DomEvent.addListener(buttonSubmit, 'click', function (e) {
+
+             
+              e.preventDefault();
+              marker.bindPopup(popupContentw);
+              
+
+              });
+
+              } //click function
+
+
+              var markers = L.markerClusterGroup({
+              singleMarkerMode: true,
+              zoomToBoundsOnClick: true,
+              iconCreateFunction: function (cluster) {
+                 
+                  var childCount = cluster.getChildCount();
+                  var c = ' marker-cluster-';
+                  if (childCount < 10) {
+                    c += 'medium';
+                  } 
+                  else if (childCount < 100) {
+                    c += 'small';
+                  } 
+                  else {
+                    c += 'large';
+            }
+
+            return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', 
+            className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+        }
+      });
+
+          for (var i = 0; i < addressPoints.length; i++) {
+            var a = addressPoints[i];
+            var title = a[2];
+            var marker = L.marker(new L.LatLng(a[0], a[1]), {
+            
+              title: title
+            });
+            marker.bindPopup(popupContent);
+            markers.addLayer(marker);
+          }
+
+          map.addLayer(markers);
+
+          
+       
+
+        
+
 
                         //bindTooltip bindPopup
                         //layer.bindTooltip(feature.properties.time);
-                      }
+         } //eachfeature function
     
-                      
-      } //loadNames functions
+   
+            
+      } //loadNames function
 
       loadNames();
-    
-    </script>
-	
-	
- <script type="text/javascript">
+     
 
-      class EasyHTTP {
 
-      // Make an HTTP PUT Request
-      async put(url, data) {
+     
+      
 
-        // Awaiting fetch which contains method,
-        // headers and content-type and body
-          const response = await fetch(url, {
-          method: 'PUT',
-          headers: {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify(data)
-          });
-          
-          // Awaiting response.json()
-          const resData = await response.json();
 
-          // Return response data
-          return resData;
-        }
-      }
     
 
-  </script>	
-	
+</script>
+
+ 
+
 </body>
 </html>
+
+
