@@ -1678,7 +1678,7 @@
         //L.geoJSON(jsontest).addTo(map);    
           
         var healthy = {
-                            radius: 8,
+                            radius: 7,
                             fillColor: "#08979D",
                             weight: 0,
                             opacity: 0,
@@ -1686,7 +1686,7 @@
                         };
 
         var ol = {
-                            radius: 12,
+                            radius: 10,
                             fillColor: "#A29E93",
                             weight: 0,
                             opacity: 0,
@@ -1881,7 +1881,32 @@
           }
 
 
-
+          var popbaseR = '<div class="card-box">\
+                    <div class="card-title" >\
+                      <h2 style="color: #c57b92;"><i class="fas fa-exclamation-triangle" style="color: #c57b92;"></i> SensorTest01</h2>\
+                        <p>Security Health: Good</p>\
+                        <p>Time</p>\
+                        <p>Prvious Issues:</p>\
+                        <p style="font-size: 11px;">Anything new?</p>\
+                    </div>\
+                    <div class="card-link" style="margin-top: 9px;">\
+                      <form id="popup-form">\
+                       <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
+                       <div style="margin-bottom: 6px;" id="vi"></div>\
+                       <input class="w3-radio" type="radio" name="gender" value="male">\
+                       <label>Urgent</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="female">\
+                       <label>Low risk</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Attacked</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Offline</label>\
+                       </form>\
+                        <a class="c-link" id="button-submit" type="button">Send\
+                            <i class="fa fa-angle-right"></i>\
+                        </a>\
+                    </div>\
+                </div>';
 
 
 
@@ -1993,32 +2018,7 @@
 
         
 
-        var popbaseR = '<div class="card-box">\
-                    <div class="card-title" >\
-                      <h2 style="color: #c57b92;"><i class="fas fa-exclamation-triangle" style="color: #c57b92;"></i> SensorTest01</h2>\
-                        <p>Security Health: Good</p>\
-                        <p>Time</p>\
-                        <p>Prvious Issues:</p>\
-                        <p style="font-size: 11px;">Anything new?</p>\
-                    </div>\
-                    <div class="card-link" style="margin-top: 9px;">\
-                      <form id="popup-form">\
-                       <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
-                       <div style="margin-bottom: 6px;" id="vi"></div>\
-                       <input class="w3-radio" type="radio" name="gender" value="male">\
-                       <label>Urgent</label>\
-                       <input class="w3-radio" type="radio" name="gender" value="female">\
-                       <label>Low risk</label>\
-                       <input class="w3-radio" type="radio" name="gender" value="okay">\
-                       <label>Attacked</label>\
-                       <input class="w3-radio" type="radio" name="gender" value="okay">\
-                       <label>Offline</label>\
-                       </form>\
-                        <a class="c-link" id="button-submit" type="button">Send\
-                            <i class="fa fa-angle-right"></i>\
-                        </a>\
-                    </div>\
-                </div>';
+    
 
           
                 var popbase0 = '<div class="card-box">\
@@ -2113,9 +2113,7 @@
                     
         var popupContent = vary;
 
-  
-        
-        pictures.bindPopup(popbaseN);
+        //pictures.bindPopup(popbaseN);
 
         layer.bindPopup(popupContent,customOptions);
 
