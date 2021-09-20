@@ -1926,7 +1926,7 @@
                             }
                           else if (feature.properties.eventType == "25")
                             {
-                                return L.marker(latlng,{icon: L.icon.pulse({iconSize:[15,15],color:'#b8778c', fillColor: '#c57b92'})});
+                                return L.marker(latlng,{icon: L.icon.pulse({iconSize:[15,15],color:'#b8778c', fillColor: '#c57b92'})}).bindPopup(popbaseR);
                             } else if (feature.properties.eventType == "30")
                               {
                                 
