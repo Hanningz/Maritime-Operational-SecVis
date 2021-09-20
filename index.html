@@ -1678,11 +1678,11 @@
         //L.geoJSON(jsontest).addTo(map);    
           
         var healthy = {
-                            radius: 7,
+                            radius: 8,
                             fillColor: "#08979D",
                             weight: 0,
                             opacity: 0,
-                            fillOpacity: 0.76
+                            fillOpacity: 0.86
                         };
 
         var ol = {
@@ -1702,102 +1702,37 @@
                             fillOpacity: 0.8
                         };
       
-        var attackedOnes = {
-                            radius: 17,
-                            fillColor: "#c95d4e",
-                            weight: 0,
-                            opacity: 0,
-                            fillOpacity: 0.9
 
-  
-                        };
-
-  //high risk vis;   
-        var atest = [
-          [60.4344, 22.1952],
-          [60.4214, 22.1785],
-          [60.4365, 22.2052],
-          [60.4256, 22.1528],
-          [60.4331, 22.2248],
-          [60.4233, 22.1907]
-          ]
-      
-
-
-      for (var i = 0; i < atest.length; i++) {
-          var id = i;
-          var cx= "marker" + id;
-          var pictures = L.marker(atest[i], {
-                      icon: L.divIcon({
-                          className: 'leaflet-echart-icon',
-                          iconSize: [30, 30],
-                          html: '<div id="' + cx + '"style="width: 60px; height: 60px; position: relative; background-color: transparent;"></div>'
-                      })
-                  }).addTo(map);
-                  
-          var myChart = echarts.init(document.getElementById(cx));
-
-          var colorPalette = ['#C8AEAC']
-                
-          option = {
-                    
-                      tooltip: {
-                          trigger: 'item',
-                          //设置背景图片 rgba格式
-                        color: "black",
-                        borderWidth: "1", //边框宽度设置1
-                        borderColor: "ffffff", //设置边框颜色
-                        textStyle: {
-                          color: "#666666" //设置文字颜色
-                        },
-                        formatter: '{b0}',
-
-                      },
-                      
-                      series: [
-                          {
-                              color: colorPalette,
-                              name: 'Security issues',
-                              type: 'pie',
-                              selectedMode: 'single',
-                              radius: [0, '24%'],
-                              
-                              labelLine: {
-                                  show: false
-                              },
-                              data: [
-                                
-                                  
-                                  {value: "2", name: 'Security issues'}
-                              ]
-                          },
-                          {
-                            color: '#A57891',
-                              name: '',
-                              type: 'pie',
-                              radius: ['26%', '78%'],
-                              labelLine: {
-                                  length: 30,
-                              },
-                              label: {
-                                show: false
-                              },
-                              data: [
-                                  {value: 600, name: 'High risky'}
-                                
-                            
-                              ]
-                          }
-                      ]
-                  };
-
-          myChart.setOption(option);
-
-          }
+ //Low risk vis;  
+	      
+	         var popbaseR = '<div class="card-box">\
+                    <div class="card-title" >\
+                      <h2 style="color: #c57b92;"><i class="fas fa-exclamation-triangle" style="color: #c57b92;"></i> SensorTest01</h2>\
+                        <p>Security Health: Good</p>\
+                        <p>Time</p>\
+                        <p>Prvious Issues:</p>\
+                        <p style="font-size: 11px;">Anything new?</p>\
+                    </div>\
+                    <div class="card-link" style="margin-top: 9px;">\
+                      <form id="popup-form">\
+                       <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
+                       <div style="margin-bottom: 6px;" id="vi"></div>\
+                       <input class="w3-radio" type="radio" name="gender" value="male">\
+                       <label>Urgent</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="female">\
+                       <label>Low risk</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Attacked</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Offline</label>\
+                       </form>\
+                        <a class="c-link" id="button-submit" type="button">Send\
+                            <i class="fa fa-angle-right"></i>\
+                        </a>\
+                    </div>\
+                </div>';
 
 
-
- //Low risk vis;   
 
  var atestk = [
           [60.4286, 22.1990],
@@ -1817,7 +1752,7 @@
                           iconSize: [30, 30],
                           html: '<div id="' + cxl + '"style="width: 50px; height: 60px; position: relative; background-color: transparent;"></div>'
                       })
-                  }).addTo(map);
+                  }).addTo(map).bindPopup(popbaseR);
                   
           var myChart = echarts.init(document.getElementById(cxl));
 
@@ -1881,34 +1816,7 @@
           }
 
 
-          var popbaseR = '<div class="card-box">\
-                    <div class="card-title" >\
-                      <h2 style="color: #c57b92;"><i class="fas fa-exclamation-triangle" style="color: #c57b92;"></i> SensorTest01</h2>\
-                        <p>Security Health: Good</p>\
-                        <p>Time</p>\
-                        <p>Prvious Issues:</p>\
-                        <p style="font-size: 11px;">Anything new?</p>\
-                    </div>\
-                    <div class="card-link" style="margin-top: 9px;">\
-                      <form id="popup-form">\
-                       <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
-                       <div style="margin-bottom: 6px;" id="vi"></div>\
-                       <input class="w3-radio" type="radio" name="gender" value="male">\
-                       <label>Urgent</label>\
-                       <input class="w3-radio" type="radio" name="gender" value="female">\
-                       <label>Low risk</label>\
-                       <input class="w3-radio" type="radio" name="gender" value="okay">\
-                       <label>Attacked</label>\
-                       <input class="w3-radio" type="radio" name="gender" value="okay">\
-                       <label>Offline</label>\
-                       </form>\
-                        <a class="c-link" id="button-submit" type="button">Send\
-                            <i class="fa fa-angle-right"></i>\
-                        </a>\
-                    </div>\
-                </div>';
-
-
+     
 
 
 
