@@ -315,7 +315,7 @@
             "time":"September",
             "days":"",
             "organiser":"desc of events",
-            "eventType":"10",
+            "eventType":"25",
             "notes":"desc of events"},
             "geometry": {
             "type": "Point",
@@ -449,7 +449,7 @@
               "year":"1890",
               "time":"September",
       
-              "eventType":"10",
+              "eventType":"25",
               "notes":""},
               "geometry": {
               "type": "Point",
@@ -537,7 +537,7 @@
     "time":"September",
     "days":"",
     "organiser":"desc of events",
-    "eventType":"20",
+    "eventType":"25",
     "notes":"desc of events"},
     "geometry": {
     "type": "Point",
@@ -1899,9 +1899,9 @@
                             {
                                 return L.circleMarker(latlng, ol);
                             }
-                          else if (feature.properties.eventType == "20")
+                          else if (feature.properties.eventType == "25")
                             {
-                                return L.circleMarker(latlng, healthy);
+                                return L.marker(latlng,{icon: L.icon.pulse({iconSize:[15,15],color:'#b8778c', fillColor: '#c57b92'})});
                             } else if (feature.properties.eventType == "30")
                               {
                                 
@@ -1918,6 +1918,7 @@
                   
         function onEachFeature(feature, layer) {
       
+        var kan = tt;
         var vary;
         var ic;
         var se;
@@ -1988,13 +1989,15 @@
                     </div>\
                 </div>';
 
-                
+    
+
+        
 
         var popbaseR = '<div class="card-box">\
                     <div class="card-title" >\
-                      <h2><i class="fas fa-exclamation-triangle"></i> SensorTest01</h2>\
+                      <h2 style="color: #c57b92;"><i class="fas fa-exclamation-triangle" style="color: #c57b92;"></i> SensorTest01</h2>\
                         <p>Security Health: Good</p>\
-                        <p>Time: 2021-9-16T12:16:37+03:00</p>\
+                        <p id="tett"></p>\
                         <p>Prvious Issues:</p>\
                         <p style="font-size: 11px;">Anything new?</p>\
                     </div>\
@@ -2016,6 +2019,8 @@
                         </a>\
                     </div>\
                 </div>';
+
+            document.getElementById("tett").innerHTML = kan;
 
                 var popbase0 = '<div class="card-box">\
                     <div class="card-title" >\
