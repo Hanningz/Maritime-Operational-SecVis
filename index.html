@@ -1712,7 +1712,7 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x
 	      
 	         var popbaseR = '<div class="card-box">\
                     <div class="card-title" >\
-                      <h2 style="color: #c57b92;"><i class="fas fa-exclamation-triangle" style="color: #c57b92;"></i> SensorTest01</h2>\
+                      <h2 style="color: #a487b0;"><i class="fas fa-exclamation-triangle" style="color: #c57b92;"></i> SensorTest01</h2>\
                         <p>Security Health: Good</p>\
                         <p>Time</p>\
                         <p>Prvious Issues:</p>\
@@ -1737,7 +1737,32 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x
                     </div>\
                 </div>';
 
-
+      var popbaseRl = '<div class="card-box">\
+                    <div class="card-title" >\
+                      <h2 style="color: #e6c42c;"><i class="fas fa-exclamation-triangle" style="color: #c57b92;"></i> SensorTest01</h2>\
+                        <p>Security Health: Good</p>\
+                        <p>Time</p>\
+                        <p>Prvious Issues:</p>\
+                        <p style="font-size: 11px;">Anything new?</p>\
+                    </div>\
+                    <div class="card-link" style="margin-top: 9px;">\
+                      <form id="popup-form">\
+                       <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
+                       <div style="margin-bottom: 6px;" id="vi"></div>\
+                       <input class="w3-radio" type="radio" name="gender" value="male">\
+                       <label>Urgent</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="female">\
+                       <label>Low risk</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Attacked</label>\
+                       <input class="w3-radio" type="radio" name="gender" value="okay">\
+                       <label>Offline</label>\
+                       </form>\
+                        <a class="c-link" id="button-submit" type="button">Send\
+                            <i class="fa fa-angle-right"></i>\
+                        </a>\
+                    </div>\
+                </div>';
 
  var atestk = [
           [60.4286, 22.1990],
@@ -1757,7 +1782,7 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x
                           iconSize: [30, 30],
                           html: '<div id="' + cxl + '"style="width: 50px; height: 60px; position: relative; background-color: transparent;"></div>'
                       })
-                  }).addTo(map).bindPopup(popbaseR);
+                  }).addTo(map).bindPopup(popbaseRl);
                   
           var myChart = echarts.init(document.getElementById(cxl));
 
@@ -1913,7 +1938,7 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x
 
         var popbaseN = '<div class="card-box">\
                     <div class="card-title" >\
-                      <h2><i class="material-icons" style="color:#469324; font-size: 19px;">security</i> SensorTest01</h2>\
+                      <h2><i class="material-icons" style="color:#4cb3b7; font-size: 19px;">security</i> SensorTest01</h2>\
                         <p>Security Health: Good</p>\
                         <p>Time: 2021-9-16T12:16:37+03:00</p>\
                         <p>Prvious Issues: None</p>\
@@ -2005,6 +2030,16 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x
                           case "10":  //healthy ones
                             vary = popbaseN;
                             se = "all fine";
+                            ic="SEnsorname";
+                            break;
+			  case "15":  //healthy ones
+                            vary = popbaseN;
+                            se = "all fine";
+                            ic="SEnsorname";
+                            break;
+			   case "25":  //healthy ones
+                            vary = popbaseR;
+                            se = "risky";
                             ic="SEnsorname";
                             break;
                           case "20": //risky ones 
