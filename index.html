@@ -162,7 +162,7 @@
     
           <div class="col-sm-3" style="height: 100%;">
     
-            <h3 style="font-size: 20px; margin-left: 6%; margin-bottom: 26px;">Operational Cybersecurity Health</h3>
+            <h3 style="font-size: 20px; margin-left: 6%; margin-bottom: 26px;">Operational Cybersecurity Health 1</h3>
           
               <div id="vis1" style="width:100%; height: 220px; background-color: white; margin-bottom: 20px;"></div>
       
@@ -200,9 +200,9 @@
 
       async function loadNames() {
        
-        var response = await fetch('http://192.168.1.124:8088/api/clients/wks-96445-mac.ad.tuni.fi/30601/');
-        var lresponse  = await fetch('http://192.168.1.124:8088/api/clients/wks-96445-mac.ad.tuni.fi/6/');
-        var sresponse = await fetch('http://192.168.1.124:8088/api/clients/wks-96445-mac.ad.tuni.fi/30602/');
+        var response = await fetch('https://192.168.1.124:8088/api/clients/wks-96445-mac.ad.tuni.fi/30601/');
+        var lresponse  = await fetch('https://192.168.1.124:8088/api/clients/wks-96445-mac.ad.tuni.fi/6/');
+        var sresponse = await fetch('https://192.168.1.124:8088/api/clients/wks-96445-mac.ad.tuni.fi/30602/');
         var sech = await response.json();
         var loc = await lresponse.json();
         var iss = await sresponse.json();
