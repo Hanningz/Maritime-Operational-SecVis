@@ -2255,14 +2255,20 @@
           type: 'pie',
           radius: ['30%', '55%'],
           center: ['50%', '50%'],
-          itemStyle: {
-            borderRadius: 10,
-            borderColor: '#fff',
-            borderWidth: 2
-          },
-          itemStyle: {
-            borderRadius: 5
-          },
+          
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        emphasis: {
+                  focus: 'self',
+                  label: {
+                  show: true,
+                 
+               
+                 
+              }
           data: [
           
             { value: 7, name: 'Under Attack 7', itemStyle: {
