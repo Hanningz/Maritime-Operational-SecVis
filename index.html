@@ -756,10 +756,10 @@
               "type": "Feature",
               "properties": { "Name":"RadarSensorTest",
               "year":"1890",
-              "time":"September",
+              "time":tt,
               "days":"",
               "organiser":"desc of events",
-              "eventType":"20",
+              "eventType":"25",
               "notes":"desc of events"},
               "geometry": {
               "type": "Point",
@@ -1712,32 +1712,7 @@
     
      //Low risk vis;  
               
-                 var popbaseR = '<div class="card-box">\
-                        <div class="card-title" >\
-                          <h2 style="color: #b55875;"><i class="fas fa-exclamation-circle" style="color: #b55875;"></i> SensorTest01</h2>\
-                            <p>Security Health: High Risk</p>\
-                            <p>Time</p>\
-                            <p>Prvious Issues:</p>\
-                            <p style="font-size: 11px;">Anything new?</p>\
-                        </div>\
-                 <div class="card-link" style="margin-top: 9px;">\
-                          <form id="popup-form">\
-                           <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
-                           <div style="margin-bottom: 6px;" id="vi"></div>\
-                           <input class="w3-radio" type="radio" name="sh" value="25">\
-                           <label>Healthy</label>\
-                           <input class="w3-radio" type="radio" name="sh" value="20">\
-                           <label>Low risk</label>\
-                           <input class="w3-radio" type="radio" name="sh" value="30">\
-                           <label>Attacked</label>\
-                           <input class="w3-radio" type="radio" name="sh" value="0">\
-                           <label>Offline</label>\
-                           </form>\
-                            <a class="c-link" id="button-submit" type="button">Send\
-                                <i class="fa fa-angle-right"></i>\
-                            </a>\
-                        </div>\
-                    </div>';
+              
     
           var popbaseRl = '<div class="card-box">\
                         <div class="card-title" >\
@@ -1782,7 +1757,7 @@
                           icon: L.divIcon({
                               className: 'leaflet-echart-icon',
                               iconSize: [36, 36],
-                              html: '<div id="' + cxl + '"style="width: 60px; height: 80px; position: relative; background-color: transparent;"></div>'
+                              html: '<div id="' + cxl + '"style="width: 50px; height: 50px; position: relative; background-color: transparent;"></div>'
                           })
                       }).addTo(map).bindPopup(popbaseRl);
                       
@@ -1965,7 +1940,31 @@
   
     
         
-    
+       var popbaseR = '<div class="card-box">\
+                        <div class="card-title" >\
+                          <h2 style="color: #b55875;"><i class="fas fa-exclamation-circle" style="color: #b55875;"></i> SensorTest01</h2>\
+                            <p>Security Health: High Risk</p>\
+                            <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
+                          <p style="font-size: 11px;">Anything new?</p>\
+                      </div>\
+                 <div class="card-link" style="margin-top: 9px;">\
+                          <form id="popup-form">\
+                           <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
+                           <div style="margin-bottom: 6px;" id="vi"></div>\
+                           <input class="w3-radio" type="radio" name="sh" value="25">\
+                           <label>Healthy</label>\
+                           <input class="w3-radio" type="radio" name="sh" value="20">\
+                           <label>Low risk</label>\
+                           <input class="w3-radio" type="radio" name="sh" value="30">\
+                           <label>Attacked</label>\
+                           <input class="w3-radio" type="radio" name="sh" value="0">\
+                           <label>Offline</label>\
+                           </form>\
+                            <a class="c-link" id="button-submit" type="button">Send\
+                                <i class="fa fa-angle-right"></i>\
+                            </a>\
+                        </div>\
+                    </div>';
             
     
         
@@ -2076,7 +2075,7 @@
                   marker.bindPopup(popupContent);
                   marker.openPopup();
     
-                  L.DomUtil.get('vi').textContent = properties.notes;
+                  //L.DomUtil.get('vi').textContent = properties.notes;
     
                   var inputSpeed = L.DomUtil.get('input-speed');
                   //inputSpeed.value = properties.notes;
