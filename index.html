@@ -479,7 +479,7 @@
     "type": "Feature",
     "properties": { "Name":"SensorDevice06",
     "year":"1890",
-    "time":"September",
+    "time":tt,
     "days":"",
     "organiser":"",
     "eventType":"30",
@@ -1870,11 +1870,11 @@
                                 }
                               else if (feature.properties.eventType == "25")
                                 {
-                                  return L.marker(latlng,{icon: L.icon.pulse({iconSize:[18,18],color:'#b8778c', fillColor: '#9b7ba8'})}); //#c57b92
+                                  return L.marker(latlng,{icon: L.icon.pulse({iconSize:[20,20],color:'#b8778c', fillColor: '#9b7ba8'})}); //#c57b92
                                  
                                 } else if (feature.properties.eventType == "30" )
                                   {
-                                    var pulsingIcon = L.icon.pulse({iconSize:[24,24],color:'#5A2E2D'});
+                                    var pulsingIcon = L.icon.pulse({iconSize:[26,26],color:'#5A2E2D'});
                                     var ao = L.marker(latlng,{icon: pulsingIcon});
                                     return ao;
     
@@ -1915,9 +1915,8 @@
                             <h2><i class="fas fa-virus" style="color:red;"></i> Malware Detection</h2>\
                             <p>SensorTest01</p>\
                             <p>Security Health: Under Attack!</p>\
-                            <p>Time: 2021-9-16T12:16:37+03:00</p>\
-                            <p>Prvious Issues: </p>\
-                            <p style="font-size: 11px;">Anything new?</p>\
+                          <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
+                          <p style="font-size: 11px;">Anything new?</p>\
                         </div>\
                             <div class="card-link" style="margin-top: 9px;">\
                           <form id="popup-form">\
