@@ -202,9 +202,9 @@
     
           async function loadNames() {
            
-            var response = await fetch('http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/30601/');
-            var lresponse  = await fetch('http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/6/');
-            var sresponse = await fetch('http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/30602/');
+            var response = await fetch('http://130.230.16.128:8088/api/clients/wks-96445-mac.ad.tuni.fi/30601/');
+            var lresponse  = await fetch('http://130.230.16.128:8088/api/clients/wks-96445-mac.ad.tuni.fi/6/');
+            var sresponse = await fetch('http://130.230.16.128:8088/api/clients/wks-96445-mac.ad.tuni.fi/30602/');
             var sech = await response.json();
             var loc = await lresponse.json();
             var iss = await sresponse.json();
