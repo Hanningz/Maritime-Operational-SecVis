@@ -116,8 +116,8 @@
     
         .custom .leaflet-popup-tip,
         .custom .leaflet-popup-content-wrapper {
-         background-color: #C6C0AD;
-              opacity: 0.72;
+         background-color: #ffffff;
+              opacity: 0.73;
             }
     
         .marker-cluster-small {
@@ -1953,7 +1953,7 @@
             var popbase = '<div class="card-box">\
                         <div class="card-title" >\
                             <h2><i class="fas fa-virus" style="color:red;"></i> Malware Detection</h2>\
-                            <p>SensorTest01</p>\
+                            <p>SensorDevice, CompanyName</p>\
                             <p>Security Health: Under Attack!</p>\
                           <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
@@ -1979,7 +1979,7 @@
     
                var popbaseN = '<div class="card-box">\
                       <div class="card-title" >\
-                        <h2><i class="material-icons" style="color:#3f999d; font-size: 19px;">security</i> SensorTest01</h2>\
+                        <h2><i class="material-icons" style="color:#3f999d; font-size: 19px;">security</i> SensorTest07, CompanyName</h2>\
                           <p>Security Health: Good</p>\
                           <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
@@ -2005,7 +2005,7 @@
   
                   var popbaseRl = '<div class="card-box">\
                         <div class="card-title" >\
-                          <h2 style="color: #e6c42c;"><i class="fas fa-exclamation-triangle" style="color: #ebcf55;"></i> SensorTest01</h2>\
+                          <h2 style="color: #e6c42c;"><i class="fas fa-exclamation-triangle" style="color: #ebcf55;"></i> SensorTest01, CompanyName</h2>\
                             <p>Security Health: Low Risk</p>\
                             <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
@@ -2032,7 +2032,7 @@
         
        var popbaseR = '<div class="card-box">\
                         <div class="card-title" >\
-                          <h2 style="color: #b55875;"><i class="fas fa-exclamation-circle" style="color: #b55875;"></i> SensorTest01</h2>\
+                          <h2 style="color: #b55875;"><i class="fas fa-exclamation-circle" style="color: #b55875;"></i> SensorTest12, CompanyName</h2>\
                             <p>Security Health: High Risk</p>\
                             <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
@@ -2062,7 +2062,7 @@
               
                     var popbase0 = '<div class="card-box">\
                         <div class="card-title" >\
-                          <h2><i class="material-icons">portable_wifi_off</i> SensorTest07</h2>\
+                          <h2><i class="material-icons">portable_wifi_off</i> SensorTest06, CompanyName</h2>\
                             <p>Security Health: Offline</p>\
                               <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
@@ -2192,12 +2192,19 @@
                       for (var i = 0, length = radios.length; i < length; i++) {
                       if (radios[i].checked) {
                       // do whatever you want with the checked radio
-
-
+                              const http = new EasyHTTP;
+                    // User Data
+                              var data = {"id":1,"value":"0"};
+    
+                      // Update Post
+                      http.put(
+                      'http://localhost:8088/api/clients/wks-96445-mac.ad.tuni.fi/30601/0/1',
+                    data)
+                      .then(data => console.log(data))
+                      .catch(err => console.log(err));
+                  });
                       
-                      alert(radios[i].value);
-    
-    
+                     // alert(radios[i].value);
     
                       //properties.eventType = "20";
                       //e.preventDefault();
@@ -2214,9 +2221,9 @@
                   var klng = k.lng;
     
               
-                  marker.remove();
+                  //marker.remove();
                   //marker.setIcon();
-                  var al = L.circleMarker([klat, klng], risks).addTo(map).update();
+                  //var al = L.circleMarker([klat, klng], risks).addTo(map).update();
     
                   });
     
