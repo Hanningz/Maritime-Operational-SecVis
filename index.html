@@ -381,7 +381,7 @@
                             "time":tt,
                             "days":"",
                             "organiser":"desc of events",
-                            "eventType":"15",
+                            "eventType":"20",
                             "notes":"desc of events"},
                             "geometry": {
                             "type": "Point",
@@ -1713,8 +1713,7 @@
      //Low risk vis;  
               
               
-    
-          var popbaseRl = '<div class="card-box">\
+     var popbaseRl = '<div class="card-box">\
                         <div class="card-title" >\
                           <h2 style="color: #e6c42c;"><i class="fas fa-exclamation-triangle" style="color: #ebcf55;"></i> SensorTest01</h2>\
                             <p>Security Health: Low Risk</p>\
@@ -1741,6 +1740,7 @@
                         </div>\
                     </div>';
     
+     
      var atestk = [
               [60.4286, 22.1990],
               [60.4410, 22.2144],
@@ -1756,8 +1756,8 @@
               var picturel = L.marker(atestk[j], {
                           icon: L.divIcon({
                               className: 'leaflet-echart-icon',
-                              iconSize: [36, 36],
-                              html: '<div id="' + cxl + '"style="width: 45px; height: 60px; position: relative; background-color: transparent;"></div>'
+                              iconSize: [34, 34],
+                              html: '<div id="' + cxl + '"style="width: 40px; height: 60px; position: relative; background-color: transparent;"></div>'
                           })
                       }).addTo(map).bindPopup(popbaseRl);
                       
@@ -1855,8 +1855,74 @@
     
                                   } else if (feature.properties.eventType == "20")
                                   {
-    
-                                    return L.circleMarker(latlng, risks);
+
+                                    var tx = L.marker(latlng, {
+                                    icon: L.divIcon({
+                                    className: 'leaflet-echart-icon',
+                                    iconSize: [34, 34],
+                                    html: '<div id="mx" style="width: 40px; height: 60px; position: relative; background-color: transparent;"></div>'
+                                        })
+                                    }).addTo(map);
+                      
+                                var myChartx = echarts.init(document.getElementById("mx"));
+                        
+                                var colorPalette = ['#C8AEAC']
+                                        
+                                optionx = {
+                                            
+                                            tooltip: {
+                                                trigger: 'item',
+                                                
+                                                color: "black",
+                                                borderWidth: "1", 
+                                                borderColor: "ffffff", 
+                                                textStyle: {
+                                                color: "#666666" 
+                                                },
+                                                formatter: '{b0}',
+                        
+                                            },
+                                            
+                                            series: [
+                                                {
+                                                    color: colorPalette,
+                                                    
+                                                    name: 'Security issues',
+                                                    type: 'pie',
+                                                    selectedMode: 'single',
+                                                    radius: [0, '24%'],
+                                                    
+                                                    labelLine: {
+                                                        show: false
+                                                    },
+                                                    data: [
+                                                        
+                                                        
+                                                        {value: "2", name: 'Security issues #description'}
+                                                    ]
+                                                },
+                                                {
+                                                    color: '#EECA66',
+                                                    name: '',
+                                                    type: 'pie',
+                                                    radius: ['26%', '62%'],
+                                                    labelLine: {
+                                                        length: 30,
+                                                    },
+                                                    label: {
+                                                        show: false
+                                                    },
+                                                    data: [
+                                                        {value: 600, name: 'Low risky'}
+                                                        
+                                                    
+                                                    ]
+                                                }
+                                            ]
+                                        };
+                        
+                                    myChartx.setOption(optionx);
+                                    return tx;
                                   // console.log(a);
                           
                                   } 
@@ -1938,6 +2004,31 @@
                       </div>\
                   </div>';
   
+                  var popbaseRl = '<div class="card-box">\
+                        <div class="card-title" >\
+                          <h2 style="color: #e6c42c;"><i class="fas fa-exclamation-triangle" style="color: #ebcf55;"></i> SensorTest01</h2>\
+                            <p>Security Health: Low Risk</p>\
+                            <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
+                          <p style="font-size: 11px;">Anything new?</p>\
+                        </div>\
+                         <div class="card-link" style="margin-top: 9px;">\
+                          <form id="popup-form">\
+                           <textarea id="input-speed" class="popup-input" type="text" style="height: 32px; width: 270px;"></textarea>\
+                           <div style="margin-bottom: 6px;" id="vi"></div>\
+                           <input class="w3-radio" type="radio" name="sh" value="25">\
+                           <label>Urgent</label>\
+                           <input class="w3-radio" type="radio" name="sh" value="25">\
+                           <label>Healthy</label>\
+                           <input class="w3-radio" type="radio" name="sh" value="30">\
+                           <label>Under Attacked</label><br>\
+                           <input class="w3-radio" type="radio" name="sh" value="0">\
+                           <label>Offline</label>\
+                           </form>\
+                            <a class="c-link" id="button-submit" type="button">Send\
+                                <i class="fa fa-angle-right"></i>\
+                            </a>\
+                        </div>\
+                    </div>';
     
         
        var popbaseR = '<div class="card-box">\
@@ -2031,18 +2122,18 @@
                                 se = "all fine";
                                 ic="SEnsorname";
                                 break;
-                  case "15":  //healthy ones
+                              case "15":  //healthy ones
                                 vary = popbaseN;
                                 se = "all fine";
                                 ic="SEnsorname";
                                 break;
-                   case "25":  //healthy ones
+                              case "25":  //healthy ones
                                 vary = popbaseR;
                                 se = "risky";
                                 ic="SEnsorname";
                                 break;
                               case "20": //risky ones 
-                                vary = popbaseR;
+                                vary = popbaseRl;
                                 se = "risky";
                                 ic="<i class='material-icons' style='color:pink'>warning</i>Malware Detection!";
                                 break;
@@ -2102,6 +2193,9 @@
                       for (var i = 0, length = radios.length; i < length; i++) {
                       if (radios[i].checked) {
                       // do whatever you want with the checked radio
+
+
+                      
                       alert(radios[i].value);
     
     
@@ -2381,8 +2475,6 @@
       
       
       </script>
-    
-    
     
     
     <script type="text/javascript">
