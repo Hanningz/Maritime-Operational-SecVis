@@ -1953,10 +1953,10 @@
             var popbase = '<div class="card-box">\
                         <div class="card-title" >\
                             <h2><i class="fas fa-virus" style="color:red;"></i> Malware Detection</h2>\
-                            <p>SensorDevice, CompanyName</p>\
+                            <p>SensorStation26, DarkLight Inc</p>\
                             <p>Security Health: Under Attack!</p>\
-                            <a href=" ">Incident.xml</a>\
-                          <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
+                            <a href=" ">IODEF-Report.xml</a>\
+                          <p>Time: ' + feature.properties.time + '</p><p>Previous Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
                         </div>\
                             <div class="card-link" style="margin-top: 9px;">\
@@ -1982,7 +1982,7 @@
                       <div class="card-title" >\
                         <h2><i class="material-icons" style="color:#3f999d; font-size: 19px;">security</i> SensorTest07, CompanyName</h2>\
                           <p>Security Health: Good</p>\
-                          <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
+                          <p>Time: ' + feature.properties.time + '</p><p>Previous Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
                       </div>\
                           <div class="card-link" style="margin-top: 9px;">\
@@ -2008,7 +2008,7 @@
                         <div class="card-title" >\
                           <h2 style="color: #e6c42c;"><i class="fas fa-exclamation-triangle" style="color: #ebcf55;"></i> SensorTest01, CompanyName</h2>\
                             <p>Security Health: Low Risk</p>\
-                            <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
+                            <p>Time: ' + feature.properties.time + '</p><p>Previous Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
                         </div>\
                          <div class="card-link" style="margin-top: 9px;">\
@@ -2035,7 +2035,7 @@
                         <div class="card-title" >\
                           <h2 style="color: #b55875;"><i class="fas fa-exclamation-circle" style="color: #b55875;"></i> SensorTest12, CompanyName</h2>\
                             <p>Security Health: High Risk</p>\
-                            <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
+                            <p>Time: ' + feature.properties.time + '</p><p>Previous Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
                       </div>\
                  <div class="card-link" style="margin-top: 9px;">\
@@ -2065,7 +2065,7 @@
                         <div class="card-title" >\
                           <h2><i class="material-icons">portable_wifi_off</i> SensorTest06, CompanyName</h2>\
                             <p>Security Health: Offline</p>\
-                              <p>Time: ' + feature.properties.time + '</p><p>Prvious Issues: None</p>\
+                              <p>Time: ' + feature.properties.time + '</p><p>Previous Issues: None</p>\
                           <p style="font-size: 11px;">Anything new?</p>\
                         </div>\
                              <div class="card-link" style="margin-top: 9px;">\
@@ -2402,7 +2402,7 @@
         title: {
           x: '3%', // 水平安放位置，默认为左对齐，可选为：'center' ¦ 'left' ¦ 'right' ¦ {number}（x坐标，单位px）
             y: '5%',
-        text: 'Security Tendency',
+        text: 'Incident Timeline',
         textStyle: {
                 fontSize: 17, // 主标题文字大小
                 fontWeight: 'bolder', // 主标题文字加粗
@@ -2414,7 +2414,7 @@
         },
         legend: {
           orient: 'vertical',
-            x:'67%',      //可设定图例在左、右、居中
+            x:'60%',      //可设定图例在左、右、居中
             y:'3%',     //可设定图例在上、下、居中
             padding:[0,50,0,0],   //可设定图例[距上方距离，距右方距
     
@@ -2464,7 +2464,7 @@
             }
           },
           {
-            name: 'Devices at Risks',
+            name: 'Devices at Risk',
             type: 'line',
             symbolSize:1,
             smooth:true,
