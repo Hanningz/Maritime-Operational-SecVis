@@ -210,8 +210,8 @@
             var loc = await lresponse.json();
             var iss = await sresponse.json();
            
-            th = JSON.stringify(sech.content.instances[0].resources[0].value);
-        tm = JSON.stringify(sech.content.instances[0].resources[1].value);
+           // th = JSON.stringify(sech.content.instances[0].resources[0].value);
+            tm = JSON.stringify(sech.content.instances[0].resources[1].value);
               
             dl = JSON.stringify(loc.content.instances[0].resources[0].value);
             da = JSON.stringify(loc.content.instances[0].resources[1].value);
@@ -223,7 +223,7 @@
                             60.42097096224303];
             var n1= "SensorTest01";
             var tt=tm;
-            var et= th;
+           // var et= th;
                        
             var jsontest = {"type": "FeatureCollection",
                    "features": [
