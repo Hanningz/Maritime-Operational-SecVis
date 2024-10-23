@@ -224,7 +224,7 @@
             var n1= "SensorTest01";
             //var tt=tm;
            // var et= th;
-                       
+            const currentTime = new Date().toISOString();
             var jsontest = {"type": "FeatureCollection",
                    "features": [
           
@@ -238,7 +238,7 @@
                   "properties": {
                   "Name": n1,
                   "year":"1890",
-                  "time":"2022-06-06T11:45:22+01:00",
+                  "time":currentTime,
                   "eventType":"30",
                   "notes":""
                   }
